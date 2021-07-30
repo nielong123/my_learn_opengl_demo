@@ -21,7 +21,7 @@ public:
     virtual void unBind() {};
 
     virtual void draw() {
-        std::cout << "draw Object 2d " << std::endl;
+//        std::cout << "draw Object 2d " << std::endl;
     };
 
 private:

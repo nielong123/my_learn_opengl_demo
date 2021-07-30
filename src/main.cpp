@@ -7,6 +7,7 @@
 #include <vector>
 #include "memory"
 #include "object/object2d/ObjPoint.h"
+#include "program/ShaderHelper.h"
 
 using namespace std;
 
@@ -18,8 +19,9 @@ void processInput(GLFWwindow *window);
 const GLuint screen_width = 800;
 const GLuint screen_height = 600;
 
-void initGLSL(){
-
+void initGLSL() {
+    ShaderHelper *_ShaderProgram = new ShaderHelper();
+    _ShaderProgram->buildProgram("", "");
 }
 
 int main() {
