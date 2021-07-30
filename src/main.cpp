@@ -1,6 +1,4 @@
 #include <iostream>
-#include <string>
-#include "Test1.h"
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
 #include "object/object2d/Object2d.h"
@@ -8,6 +6,7 @@
 #include "memory"
 #include "object/object2d/ObjPoint.h"
 #include "program/ShaderHelper.h"
+#include "program/ColorShaderProgram.h"
 
 using namespace std;
 
@@ -19,9 +18,11 @@ void processInput(GLFWwindow *window);
 const GLuint screen_width = 800;
 const GLuint screen_height = 600;
 
+
+ColorShaderProgram *_ColorShaderProgram;
+
 void initGLSL() {
-    ShaderHelper *_ShaderProgram = new ShaderHelper();
-    _ShaderProgram->buildProgram("", "");
+    _ColorShaderProgram = new ColorShaderProgram();
 }
 
 int main() {

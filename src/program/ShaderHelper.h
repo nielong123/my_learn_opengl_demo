@@ -15,11 +15,10 @@ public:
     int linkProgram(int vertexShader, int fragmentShader);
 
 protected:
-    int programId;
 
-    int compileVertexShader(const char *vertex_sharer);
+    int compileVertexShader(const char *strSharer);
 
-    int compileFragmentShader(const char *fragment_sharer);
+    int compileFragmentShader(const char *strSharer);
 
     /***
      * 将glsl和读取成着色器程序
@@ -34,22 +33,22 @@ protected:
      * @param vertex_sharer
      * @return
      */
-    void validateProgram();
+    bool validateProgram(int programId);
 
-    const char *STR_VERTEX_SHADER = R"GLSL(
-        #version 100
-        attribute vec4 a_Position;
-        attribute vec2 a_TexCoordinate;
-        uniform mat4 u_Matrix;
-        uniform float m_pointSize;
-
-        void main()
-        {
-            gl_PointSize = m_pointSize;
-        //    gl_PointSize = 32.0;
-            gl_Position = u_Matrix * a_Position;
-        }
-    )GLSL";
+//    const char *STR_VERTEX_SHADER = R"GLSL(
+//        #version 100
+//        attribute vec4 a_Position;
+//        attribute vec2 a_TexCoordinate;
+//        uniform mat4 u_Matrix;
+//        uniform float m_pointSize;
+//
+//        void main()
+//        {
+//            gl_PointSize = m_pointSize;
+//        //    gl_PointSize = 32.0;
+//            gl_Position = u_Matrix * a_Position;
+//        }
+//    )GLSL";
 };
 
 

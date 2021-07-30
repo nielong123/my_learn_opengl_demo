@@ -12,11 +12,11 @@ using namespace std;
 
 
 int ShaderHelper::buildProgram(const char *vertex_sharer, const char *fragment_sharer) {
-    int vertexShader = compileVertexShader(STR_VERTEX_SHADER);
-    int fragmentShader = compileFragmentShader(STR_VERTEX_SHADER);
+    int vertexShader = compileVertexShader(vertex_sharer);
+    int fragmentShader = compileFragmentShader(fragment_sharer);
     int programId = linkProgram(vertexShader, fragmentShader);
     if (LoggerConfig::ON) {
-        validateProgram();
+        validateProgram(programId);
     }
     return programId;
 }
@@ -31,7 +31,7 @@ int ShaderHelper::compileShader(int type, const char *shaderCode) {
     const int shaderObjectId = glCreateShader(type);
     if (shaderObjectId == 0) {
         if (LoggerConfig::ON) {
-            printf("Warning! Could not create new shader, glGetError: " + glGetError());
+            printf("Warning! Could not create new shader, glGetError: %s + \n" + glGetError());
         }
         return 0;
     }
@@ -42,30 +42,38 @@ int ShaderHelper::compileShader(int type, const char *shaderCode) {
     if (LoggerConfig::ON) {
         GLchar message[256];
         glGetShaderInfoLog(shaderObjectId, sizeof(message), 0, message);
-        printf("Result of compiling source: \n %s \n \n + %s",
+        printf("Result of compiling source: \n %s \n \n + %s  + \n",
                shaderCode, message);
     }
     if (compileStatus == 0) {
         glDeleteShader(shaderObjectId);
         if (LoggerConfig::ON) {
-            printf("Warning! Compilation of shader failed, glGetError: %s", glGetError());
+            printf("Warning! Compilation of shader failed, glGetError: %s  \n", glGetError());
         }
-        return 0;
+//        return 0;
     }
     return shaderObjectId;
 }
 
-
-int ShaderHelper::compileFragmentShader(const char *vertex_sharer) {
-    return compileShader(GL_FRAGMENT_SHADER, STR_VERTEX_SHADER);
+bool ShaderHelper::validateProgram(int programId) {
+    glValidateProgram(programId);
+    GLint linkStatus;
+    glGetProgramiv(programId, GL_VALIDATE_STATUS, &linkStatus);
+    if (LoggerConfig::ON && linkStatus == GL_FALSE) {
+        GLchar message[256];
+        glGetProgramInfoLog(programId, sizeof(message), 0, message);
+        printf("Result of validating program: %d   \nLog: %s  \n",
+               linkStatus, message);
+    }
+    return linkStatus != GL_FALSE;
 }
 
-int ShaderHelper::compileVertexShader(const char *vertex_sharer) {
-    return compileShader(GL_VERTEX_SHADER, vertex_sharer);
+int ShaderHelper::compileFragmentShader(const char *strSharer) {
+    return compileShader(GL_FRAGMENT_SHADER, strSharer);
 }
 
-void ShaderHelper::validateProgram() {
-
+int ShaderHelper::compileVertexShader(const char *strSharer) {
+    return compileShader(GL_VERTEX_SHADER, strSharer);
 }
 
 

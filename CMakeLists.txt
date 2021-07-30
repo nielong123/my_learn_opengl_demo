@@ -20,7 +20,7 @@ add_executable(testCpp
         src/glad.c
         src/object/object2d/Object2d.h
         src/geometry/Point.cpp src/geometry/Point.cpp
-        src/geometry/Point.cpp src/geometry/Point.h src/object/object2d/ObjPoint.cpp src/object/object2d/ObjPoint.h src/object/object3d/Point.cpp src/object/object3d/Point.h src/program/ShaderHelper.cpp src/program/ShaderHelper.h src/helper/LoggerConfig.h)
+        src/geometry/Point.cpp src/geometry/Point.h src/object/object2d/ObjPoint.cpp src/object/object2d/ObjPoint.h src/object/object3d/Point.cpp src/object/object3d/Point.h src/program/ShaderHelper.cpp src/program/ShaderHelper.h src/helper/LoggerConfig.h src/program/ShaderProgram.cpp src/program/ShaderProgram.h src/program/ColorShaderProgram.cpp src/program/ColorShaderProgram.h src/constants/Constants.h src/constants/Constants.cpp)
 
 target_link_libraries(testCpp
         glfw
