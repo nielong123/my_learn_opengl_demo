@@ -21,27 +21,28 @@ private:
     int aPointSizeLocation;
 
 private:
-    inline static const char *VERTEX_SHADER = {"#version 150"
-                                               "attribute vec4 a_Position;"
-                                               "attribute vec2 a_TexCoordinate;"
+    inline static const char *VERTEX_SHADER = {"#version 330\n"
+                                               "in vec4 a_Position;"
+                                               "in vec2 a_TexCoordinate;"
                                                "uniform mat4 u_Matrix;"
                                                "uniform float m_pointSize;"
                                                ""
                                                "void main()"
                                                "{"
                                                "    gl_PointSize = m_pointSize;"
-                                               "//    gl_PointSize = 32.0;"
                                                "    gl_Position = u_Matrix * a_Position;"
                                                "}"
     };
 
-    inline static const char *FRAGMENT_SHADER = {"#version 150"
-                                                 "precision mediump float;"
-                                                 "uniform vec4 u_Color;"
+    inline static const char *FRAGMENT_SHADER = {"#version 330\n"
+//                                                 "precision mediump float;"
+                                                 "uniform vec4 u_Color;\n"
+
+                                                 "out vec4 fragColor;\n"
 
                                                  "void main()"
                                                  "{"
-                                                 "    gl_FragColor = u_Color;"
+                                                 "    fragColor = u_Color;"
                                                  "}"
     };
 };

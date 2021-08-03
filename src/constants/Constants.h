@@ -11,6 +11,8 @@ public:
     inline static const char *A_POSITION = "a_Position";
     inline static const char *A_COLOR = "u_Color";
     inline static const char *A_POINTSIZE = "m_pointSize";
+    inline static const char *U_TEXTURE_UNIT = "u_TextureUnit";
+    inline static const char *A_TEXTURE_COORDINATES = "a_TextureCoordinates";
 };
 
 #endif //TESTCPP_CONSTANTS_H

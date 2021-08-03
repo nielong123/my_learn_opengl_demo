@@ -14,7 +14,7 @@ public:
 
     Object2d() {};
 
-    ~Object2d() {};
+    virtual ~Object2d() {};
 
     virtual void bind() { isBind = true; };
 

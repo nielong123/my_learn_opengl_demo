@@ -19,8 +19,41 @@ add_executable(testCpp
         src/Test2.h
         src/glad.c
         src/object/object2d/Object2d.h
-        src/geometry/Point.cpp src/geometry/Point.cpp
-        src/geometry/Point.cpp src/geometry/Point.h src/object/object2d/ObjPoint.cpp src/object/object2d/ObjPoint.h src/object/object3d/Point.cpp src/object/object3d/Point.h src/program/ShaderHelper.cpp src/program/ShaderHelper.h src/helper/LoggerConfig.h src/program/ShaderProgram.cpp src/program/ShaderProgram.h src/program/ColorShaderProgram.cpp src/program/ColorShaderProgram.h src/constants/Constants.h src/constants/Constants.cpp)
+        src/geometry/Point.cpp
+        src/geometry/Point.cpp
+        src/geometry/Point.cpp
+        src/geometry/Point.h
+        src/object/object2d/ObjPoint.cpp
+        src/object/object2d/ObjPoint.h
+        src/object/object3d/Obj3dPoint.cpp
+        src/object/object3d/Obj3dPoint.h
+        src/program/ShaderHelper.cpp
+        src/program/ShaderHelper.h
+        src/helper/LoggerConfig.h
+        src/program/ShaderProgram.cpp
+        src/program/ShaderProgram.h
+        src/program/ColorShaderProgram.cpp
+        src/program/ColorShaderProgram.h
+        src/constants/Constants.h
+        src/constants/Constants.cpp
+        src/program/TextureShaderProgram.cpp
+        src/program/TextureShaderProgram.h
+        src/helper/VaryTools.cpp
+        src/helper/VaryTools.h
+        src/object/object3d/Object3d.h
+        src/include/matrixUtil/CCData.cpp
+        src/include/matrixUtil/CCData.h
+        src/include/matrixUtil/Vec4.h
+        src/include/matrixUtil/Vec4.cpp
+        src/include/matrixUtil/Vec4.inl
+        src/include/matrixUtil/Vec3.h
+        src/include/matrixUtil/Vec3.cpp
+        src/include/matrixUtil/Vec3.inl
+        src/include/matrixUtil/Mat4.cpp
+        src/include/matrixUtil/Mat4.h
+        src/include/matrixUtil/Mat4.inl
+
+        )
 
 target_link_libraries(testCpp
         glfw

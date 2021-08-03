@@ -6,7 +6,6 @@
 #include "ShaderHelper.h"
 #include "glad/glad.h"
 #include "../helper/LoggerConfig.h"
-#include "GLFW/glfw3.h"
 
 using namespace std;
 
@@ -21,17 +20,48 @@ int ShaderHelper::buildProgram(const char *vertex_sharer, const char *fragment_s
     return programId;
 }
 
-int ShaderHelper::linkProgram(int vertexShader, int fragmentShader) {
+int ShaderHelper::linkProgram(int vertexShaderId, int fragmentShaderId) {
+    const int programObjId = glCreateProgram();
+    if (programObjId == 0) {
+        if (LoggerConfig::ON) {
+            printf(" Warning! Could not create new program, glGetError:  = %d \n", glGetError());
+        }
+        return 0;
+    }
+    glAttachShader(programObjId, vertexShaderId);
+    glAttachShader(programObjId, fragmentShaderId);
+    glLinkProgram(programObjId);
+    GLint linkStatus;
+    glGetProgramiv(programObjId, GL_LINK_STATUS, &linkStatus);
 
-    return 0;
+    if (LoggerConfig::ON) {
+        GLchar message[256];
+        glGetProgramInfoLog(programObjId, sizeof(message), 0, message);
+        printf("Result of validating program: %d   \nLog: %s  \n",
+               linkStatus, message);
+    }
+    if (linkStatus == 0) {
+        glDeleteProgram(programObjId);
+        if (LoggerConfig::ON) {
+            printf(" Warning! Linking of program failed, glGetError: %d \n", glGetError());
+        }
+        return 0;
+    }
+
+    return programObjId;
 }
 
-
+/***
+ * 用glsl链接着色器程序
+ * @param type
+ * @param shaderCode
+ * @return
+ */
 int ShaderHelper::compileShader(int type, const char *shaderCode) {
     const int shaderObjectId = glCreateShader(type);
     if (shaderObjectId == 0) {
         if (LoggerConfig::ON) {
-            printf("Warning! Could not create new shader, glGetError: %s + \n" + glGetError());
+            printf("Warning! Could not create new shader, glGetError: %s  \n" + glGetError());
         }
         return 0;
     }
@@ -48,18 +78,23 @@ int ShaderHelper::compileShader(int type, const char *shaderCode) {
     if (compileStatus == 0) {
         glDeleteShader(shaderObjectId);
         if (LoggerConfig::ON) {
-            printf("Warning! Compilation of shader failed, glGetError: %s  \n", glGetError());
+            printf("Warning! Compilation of shader failed, glGetError: %d  \n", glGetError());
         }
 //        return 0;
     }
     return shaderObjectId;
 }
 
+/***
+ * 验证programId 是否有效
+ * @param programId
+ * @return
+ */
 bool ShaderHelper::validateProgram(int programId) {
     glValidateProgram(programId);
     GLint linkStatus;
     glGetProgramiv(programId, GL_VALIDATE_STATUS, &linkStatus);
-    if (LoggerConfig::ON && linkStatus == GL_FALSE) {
+    if (LoggerConfig::ON) {
         GLchar message[256];
         glGetProgramInfoLog(programId, sizeof(message), 0, message);
         printf("Result of validating program: %d   \nLog: %s  \n",
