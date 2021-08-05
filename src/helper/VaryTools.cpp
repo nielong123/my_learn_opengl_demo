@@ -34,3 +34,8 @@ void VaryTools::scale(float x, float y, float z) {
 void VaryTools::setProjection(int width, int height) {
     Mat4::createPerspective(100, 35, width, height, &projectionMatrix);
 }
+
+void VaryTools::getViewProjectionMatrix(Mat4 &matrix) {
+    Mat4 ans = Mat4::IDENTITY;
+    Mat4::multiply(ans, viewMatrix, &ans);
+}

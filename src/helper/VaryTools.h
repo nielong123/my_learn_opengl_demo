@@ -35,6 +35,8 @@ public:
     //重制投影视角矩阵
     void resetVPMatrix();
 
+    void getViewProjectionMatrix(Mat4 &matrix);
+
 private:
     Mat4 viewMatrix;
     Mat4 projectionMatrix;

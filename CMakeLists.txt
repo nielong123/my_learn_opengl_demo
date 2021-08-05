@@ -51,7 +51,7 @@ add_executable(testCpp
         src/include/matrixUtil/Mat4.h
         src/include/matrixUtil/Mat4.inl
 
-        )
+        src/object/object3d/Obj3dCoordinateLines.cpp src/object/object3d/Obj3dCoordinateLines.h)
 
 target_link_libraries(testCpp
         glfw

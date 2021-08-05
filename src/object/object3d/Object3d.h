@@ -17,6 +17,8 @@ public:
 
     virtual void unBind() {};
 
+//    void draw(Mat4)
+
     virtual void draw() {
         std::cout << "draw Object 3d " << std::endl;
     };
