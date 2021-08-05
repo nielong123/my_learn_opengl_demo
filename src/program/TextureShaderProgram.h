@@ -25,12 +25,12 @@ public :
 
 private:
     inline static const char *VERTEX_SHADER = {
-            "#version 330\n"
+            "#version 330 core\n"
             "uniform mat4 u_Matrix;\n"
-            "attribute vec4 a_Position;\n"
-            "attribute vec2 a_TextureCoordinates;\n"
+            "in vec4 a_Position;\n"
+            "in vec2 a_TextureCoordinates;\n"
             "\n"
-            "varying vec2 v_TextureCoordinates;\n"
+            "out vec2 v_TextureCoordinates;\n"
             "\n"
             "void main(){\n"
             "    v_TextureCoordinates = a_TextureCoordinates;\n"
@@ -39,17 +39,17 @@ private:
     };
 
     inline static const char *FRAGMENT_SHADER = {
-            "#version 330\n"
+            "#version 330 core\n"
             "precision mediump float;\n"
             "\n"
             "uniform sampler2D u_TextureUnit;\n"
-            "varying vec2 v_TextureCoordinates;\n"
+            "in vec2 v_TextureCoordinates;\n"
             "out vec4 fragColor;\n"
 
             "\n"
             "void main()\n"
             "{\n"
-            "    fragColor = texture2D(u_TextureUnit,v_TextureCoordinates);\n"
+            "    fragColor = texture(u_TextureUnit,v_TextureCoordinates);\n"
             "}"
     };
 };

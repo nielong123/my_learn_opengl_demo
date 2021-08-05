@@ -20,8 +20,6 @@ add_executable(testCpp
         src/glad.c
         src/object/object2d/Object2d.h
         src/geometry/Point.cpp
-        src/geometry/Point.cpp
-        src/geometry/Point.cpp
         src/geometry/Point.h
         src/object/object2d/ObjPoint.cpp
         src/object/object2d/ObjPoint.h

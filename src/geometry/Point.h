@@ -2,8 +2,8 @@
 // Created by 聂龙聂龙 on 2021/6/29.
 //
 
-#ifndef TESTCPP_OBJ3DPOINT_H
-#define TESTCPP_OBJ3DPOINT_H
+#ifndef TESTCPP_POINT_H
+#define TESTCPP_POINT_H
 
 
 class Point {
@@ -21,4 +21,4 @@ public:
 };
 
 
-#endif //TESTCPP_OBJ3DPOINT_H
+#endif //TESTCPP_POINT_H
