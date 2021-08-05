@@ -12,6 +12,7 @@ using namespace std;
 
 int ShaderHelper::buildProgram(const char *vertex_sharer, const char *fragment_sharer) {
     int vertexShader = compileVertexShader(vertex_sharer);
+    printf("\n\n\n\n");
     int fragmentShader = compileFragmentShader(fragment_sharer);
     int programId = linkProgram(vertexShader, fragmentShader);
     if (LoggerConfig::ON) {
@@ -72,7 +73,7 @@ int ShaderHelper::compileShader(int type, const char *shaderCode) {
     if (LoggerConfig::ON) {
         GLchar message[256];
         glGetShaderInfoLog(shaderObjectId, sizeof(message), 0, message);
-        printf("Result of compiling source: \n %s \n \n + %s  + \n",
+        printf("Result of compiling source: \n %s \n \n %s  \n",
                shaderCode, message);
     }
     if (compileStatus == 0) {
@@ -80,7 +81,7 @@ int ShaderHelper::compileShader(int type, const char *shaderCode) {
         if (LoggerConfig::ON) {
             printf("Warning! Compilation of shader failed, glGetError: %d  \n", glGetError());
         }
-//        return 0;
+        return 0;
     }
     return shaderObjectId;
 }
@@ -97,7 +98,7 @@ bool ShaderHelper::validateProgram(int programId) {
     if (LoggerConfig::ON) {
         GLchar message[256];
         glGetProgramInfoLog(programId, sizeof(message), 0, message);
-        printf("Result of validating program: %d   \nLog: %s  \n",
+        printf("11Result of validating program: %d   \nLog: %s  \n",
                linkStatus, message);
     }
     return linkStatus != GL_FALSE;

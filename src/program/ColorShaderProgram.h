@@ -21,30 +21,39 @@ private:
     int aPointSizeLocation;
 
 private:
-    inline static const char *VERTEX_SHADER = {"#version 330\n"
-                                               "in vec4 a_Position;"
-                                               "in vec2 a_TexCoordinate;"
-                                               "uniform mat4 u_Matrix;"
-                                               "uniform float m_pointSize;"
-                                               ""
-                                               "void main()"
-                                               "{"
-                                               "    gl_PointSize = m_pointSize;"
-                                               "    gl_Position = u_Matrix * a_Position;"
-                                               "}"
-    };
+//    inline static const char *VERTEX_SHADER = R"GLSL(#version 330 core
+//                                                    layout (location = 0) in vec3 aPos;
+//                                                    void main()
+//                                                    {
+//                                                       gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
+//                                                    })GLSL";
+    inline static const char *VERTEX_SHADER = R"GLSL(#version 330 core
+                                               layout(location = 0)in vec4 a_Position;
+                                               uniform mat4 u_Matrix;
+                                               uniform float m_pointSize;
+                                               in vec4 u_Color;
 
-    inline static const char *FRAGMENT_SHADER = {"#version 330\n"
-//                                                 "precision mediump float;"
-                                                 "uniform vec4 u_Color;\n"
+                                               void main()
+                                               {
+                                                   gl_PointSize = m_pointSize;
+                                                   gl_Position = u_Matrix * a_Position;
+                                               })GLSL";
 
-                                                 "out vec4 fragColor;\n"
 
-                                                 "void main()"
-                                                 "{"
-                                                 "    fragColor = u_Color;"
-                                                 "}"
-    };
+//    inline static const char *FRAGMENT_SHADER = R"GLSL(#version 330 core
+//                                                    out vec4 FragColor;
+//
+//                                                    void main()
+//                                                    {
+//                                                        FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+//                                                    })GLSL";
+    inline static const char *FRAGMENT_SHADER = R"GLSL(#version 330 core
+                                                 vec4 u_Color;
+                                                 out vec4 fragColor;
+                                                 void main()
+                                                 {
+                                                     fragColor = u_Color;
+                                                 })GLSL";
 };
 
 
