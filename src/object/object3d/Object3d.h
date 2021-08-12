@@ -5,26 +5,53 @@
 #ifndef TESTCPP_OBJECT3D_H
 #define TESTCPP_OBJECT3D_H
 
+#include "../../include/matrixUtil/Mat4.h"
+#include "../../program/ColorShaderProgram.h"
+
+using namespace cocos2d;
 
 class Object3d {
 
 public:
-    Object3d() {};
+
+    Object3d() {
+        mvpMatrix = Mat4::IDENTITY;
+        modelMatrix = Mat4::IDENTITY;
+    };
 
     virtual ~Object3d() {};
 
     virtual void bind() { isBind = true; };
 
-    virtual void unBind() {};
+    virtual void unbind() {};
 
-//    void draw(Mat4)
+    void draw(const Mat4 viewProjectMatrix) {
+        if (!isBind) {
+            bind();
+        }
+        Mat4::multiply(viewProjectMatrix, modelMatrix, &mvpMatrix);
+        draw();
+        unbind();
+    }
 
-    virtual void draw() {
-        std::cout << "draw Object 3d " << std::endl;
-    };
+    virtual void draw() {};
+
+    void setColorShaderProgram(ColorShaderProgram colorShaderProgram) {
+        _colorShaderProgram = colorShaderProgram;
+    }
+
+public:
+    Mat4 mvpMatrix;
+
+    Mat4 modelMatrix;
 
 private:
     bool isBind;
+
+protected:
+    ColorShaderProgram _colorShaderProgram;
+
 };
+
 
 #endif //TESTCPP_OBJECT3D_H

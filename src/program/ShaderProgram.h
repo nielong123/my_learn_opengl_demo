@@ -10,6 +10,9 @@ class ShaderProgram {
 public :
     ShaderProgram(const char *VERTEX_SHADER, const char *FRAGMENT_SHADER);
 
+    virtual void userProgram();
+
+protected:
     int programId;
 };
 

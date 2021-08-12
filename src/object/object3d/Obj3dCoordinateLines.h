@@ -7,14 +7,24 @@
 
 
 #include "Object3d.h"
+#include "../../arrays/VertexArray.h"
 
 class Obj3dCoordinateLines : virtual public Object3d {
 public :
-    void unBind();
+    Obj3dCoordinateLines();
+
+    virtual ~Obj3dCoordinateLines();
+
+    void bind();
+
+    void unbind();
 
     void draw();
 
+//    void setColorShaderProgram(ColorShaderProgram _ColorShaderProgram);
+
 private:
+    VertexArray *_VertexArray;
     float r = 3.f;
     float vertexData[18] = {0.f, r, 0.f,
                             0.f, -r, 0.f,

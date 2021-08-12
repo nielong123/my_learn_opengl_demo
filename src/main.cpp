@@ -9,6 +9,7 @@
 #include "object/object3d/Obj3dPoint.h"
 #include "helper/VaryTools.h"
 #include "geometry/Point.h"
+#include "object/object3d/Obj3dCoordinateLines.h"
 
 using namespace std;
 
@@ -69,7 +70,11 @@ int main() {
     // -----------
     std::vector<Object3d *> mObjectVector;
     Obj3dPoint *_Obj3dPoint = new Obj3dPoint();
+//    _Obj3dPoint->setColorShaderProgram(*_ColorShaderProgram);
+    Obj3dCoordinateLines *_Obj3dCoordinateLines = new Obj3dCoordinateLines();
+    _Obj3dCoordinateLines->setColorShaderProgram(*_ColorShaderProgram);
     mObjectVector.push_back(static_cast<Object3d *>(_Obj3dPoint));
+    mObjectVector.push_back(static_cast<Object3d *>(_Obj3dCoordinateLines));
 
     while (!glfwWindowShouldClose(window)) {
         // input
@@ -81,7 +86,8 @@ int main() {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         for (Object3d *item : mObjectVector) {
-//            item->draw();
+            Mat4 mat = _VaryTools->getViewProjectionMatrix();
+            item->draw(mat);
         }
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)

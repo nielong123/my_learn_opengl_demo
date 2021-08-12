@@ -15,9 +15,9 @@ int ShaderHelper::buildProgram(const char *vertex_sharer, const char *fragment_s
     printf("\n\n\n\n");
     int fragmentShader = compileFragmentShader(fragment_sharer);
     int programId = linkProgram(vertexShader, fragmentShader);
-    if (LoggerConfig::ON) {
-        validateProgram(programId);
-    }
+//    if (LoggerConfig::ON) {
+//        validateProgram(programId);
+//    }
     return programId;
 }
 
@@ -35,19 +35,21 @@ int ShaderHelper::linkProgram(int vertexShaderId, int fragmentShaderId) {
     GLint linkStatus;
     glGetProgramiv(programObjId, GL_LINK_STATUS, &linkStatus);
 
-    if (LoggerConfig::ON) {
+    if (LoggerConfig::ON && !linkStatus) {
         GLchar message[256];
         glGetProgramInfoLog(programObjId, sizeof(message), 0, message);
         printf("Result of validating program: %d   \nLog: %s  \n",
                linkStatus, message);
     }
-    if (linkStatus == 0) {
+    if (!linkStatus) {
         glDeleteProgram(programObjId);
         if (LoggerConfig::ON) {
             printf(" Warning! Linking of program failed, glGetError: %d \n", glGetError());
         }
         return 0;
     }
+    glDeleteShader(vertexShaderId);
+    glDeleteShader(fragmentShaderId);
 
     return programObjId;
 }
@@ -66,11 +68,11 @@ int ShaderHelper::compileShader(int type, const char *shaderCode) {
         }
         return 0;
     }
-    glShaderSource(shaderObjectId, 1, &shaderCode, 0);
+    glShaderSource(shaderObjectId, 1, &shaderCode, NULL);
     glCompileShader(shaderObjectId);
     GLint compileStatus;
     glGetShaderiv(shaderObjectId, GL_COMPILE_STATUS, &compileStatus);
-    if (LoggerConfig::ON) {
+    if (LoggerConfig::ON && !compileStatus) {
         GLchar message[256];
         glGetShaderInfoLog(shaderObjectId, sizeof(message), 0, message);
         printf("Result of compiling source: \n %s \n \n %s  \n",
@@ -95,7 +97,7 @@ bool ShaderHelper::validateProgram(int programId) {
     glValidateProgram(programId);
     GLint linkStatus;
     glGetProgramiv(programId, GL_VALIDATE_STATUS, &linkStatus);
-    if (LoggerConfig::ON) {
+    if (LoggerConfig::ON && !linkStatus) {
         GLchar message[256];
         glGetProgramInfoLog(programId, sizeof(message), 0, message);
         printf("11Result of validating program: %d   \nLog: %s  \n",

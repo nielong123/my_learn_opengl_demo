@@ -16,9 +16,7 @@ public:
 
     ~Obj3dPoint();
 
-    void draw() override {
-        std::cout << "draw Object Obj3dPoint " << std::endl;
-    };
+    void draw();
 };
 
 

@@ -14,7 +14,9 @@ public:
 
     ~ColorShaderProgram();
 
-private:
+    void userProgram();
+
+public:
     int aPositionLocation;
     int aMatrixLocation;
     int aColorLocation;
