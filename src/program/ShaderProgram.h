@@ -12,8 +12,11 @@ public :
 
     virtual void userProgram();
 
-protected:
+    int getProgramId();
+
     int programId;
+private:
+
 };
 
 

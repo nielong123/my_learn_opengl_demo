@@ -15,4 +15,8 @@ void ShaderProgram::userProgram() {
     glUseProgram(programId);
 }
 
+int ShaderProgram::getProgramId() {
+    return programId;
+}
+
 

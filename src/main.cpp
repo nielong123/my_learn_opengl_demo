@@ -10,6 +10,7 @@
 #include "helper/VaryTools.h"
 #include "geometry/Point.h"
 #include "object/object3d/Obj3dCoordinateLines.h"
+#include "object/TestFunction.h"
 
 using namespace std;
 
@@ -24,14 +25,23 @@ const GLuint screen_width = 800;
 const GLuint screen_height = 600;
 VaryTools *_VaryTools;
 
-TextureShaderProgram *_TextureShaderProgram;
+//TextureShaderProgram *_TextureShaderProgram;
 ColorShaderProgram *_ColorShaderProgram;
 
 Point *_viewCenterPoint;
 
-void initGLSL() {
-    _ColorShaderProgram = new ColorShaderProgram();
-    _TextureShaderProgram = new TextureShaderProgram();
+
+float vertices[] = {
+        -0.5f, -0.5f, 0.0f, // left
+        0.5f, -0.5f, 0.0f, // right
+        0.0f, 0.5f, 0.0f  // top
+};
+
+void testDraw(GLuint VAO) {
+    _ColorShaderProgram->userProgram();
+    glBindVertexArray(
+            VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
+    glDrawArrays(GL_TRIANGLES, 0, 3);
 }
 
 int main() {
@@ -63,19 +73,24 @@ int main() {
         return -1;
     }
 
-    initGLSL();
-    initViewPoint();
+//    initViewPoint();
+    GLuint vao, vbo;
+    _ColorShaderProgram = new ColorShaderProgram();
+//    TestFunction::testInit111(vertices, sizeof(vertices) / sizeof(*vertices), vao, vbo);
+//    TestFunction::testInit(vao, vbo);
+
+//    testInit();
+
+    std::vector<Object3d *> mObjectVector;
+//    Obj3dPoint *_Obj3dPoint = new Obj3dPoint();
+//    _Obj3dPoint->setColorShaderProgram(*_ColorShaderProgram);
+    Obj3dCoordinateLines *_Obj3dCoordinateLines = new Obj3dCoordinateLines();
+//    _Obj3dCoordinateLines->setColorShaderProgram(*_ColorShaderProgram);
+//    mObjectVector.push_back(static_cast<Object3d *>(_Obj3dPoint));
+    mObjectVector.push_back(static_cast<Object3d *>(_Obj3dCoordinateLines));
 
     // render loop
     // -----------
-    std::vector<Object3d *> mObjectVector;
-    Obj3dPoint *_Obj3dPoint = new Obj3dPoint();
-//    _Obj3dPoint->setColorShaderProgram(*_ColorShaderProgram);
-    Obj3dCoordinateLines *_Obj3dCoordinateLines = new Obj3dCoordinateLines();
-    _Obj3dCoordinateLines->setColorShaderProgram(*_ColorShaderProgram);
-    mObjectVector.push_back(static_cast<Object3d *>(_Obj3dPoint));
-    mObjectVector.push_back(static_cast<Object3d *>(_Obj3dCoordinateLines));
-
     while (!glfwWindowShouldClose(window)) {
         // input
         // -----
@@ -86,8 +101,12 @@ int main() {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         for (Object3d *item : mObjectVector) {
-            Mat4 mat = _VaryTools->getViewProjectionMatrix();
-            item->draw(mat);
+////            Mat4 mat = _VaryTools->getViewProjectionMatrix();
+////            item->draw(mat);
+//        _ColorShaderProgram->userProgram();
+            item->draw();
+//        printf("glGetError() = %d \n", glGetError());
+//        testDraw(vao);
         }
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)

@@ -22,29 +22,21 @@ public:
     int aColorLocation;
     int aPointSizeLocation;
 
-private:
-    inline static const char *VERTEX_SHADER = R"GLSL(#version 330 core
-                                               layout(location = 0)in vec4 a_Position;
-                                               uniform mat4 u_Matrix;
-                                               uniform float m_pointSize;
-                                               out vec4 u_Color;
-                                               vec4 in_color;
-
-                                               void main()
-                                               {
-                                                   gl_PointSize = m_pointSize;
-                                                   gl_Position = u_Matrix * a_Position;
-                                                   u_Color = in_color;
-                                               })GLSL";
+public:
+    inline static const char *VERTEX_SHADER = "#version 330 core\n"
+                                              "layout (location = 0) in vec3 aPos;\n"
+                                              "void main()\n"
+                                              "{\n"
+                                              "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+                                              "}\0";;
 
 
-    inline static const char *FRAGMENT_SHADER = R"GLSL(#version 330 core
-                                                 in vec4 u_Color;
-                                                 out vec4 fragColor;
-                                                 void main()
-                                                 {
-                                                     fragColor = u_Color;
-                                                 })GLSL";
+    inline static const char *FRAGMENT_SHADER = "#version 330 core\n"
+                                                "out vec4 FragColor;\n"
+                                                "void main()\n"
+                                                "{\n"
+                                                "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+                                                "}\n\0";
 };
 
 

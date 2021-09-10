@@ -10,14 +10,15 @@
 
 class VertexArray {
 public:
-    VertexArray(float vertexData[]);
+    VertexArray(float *vertexData, int vertexLength, GLuint &vao, GLuint &vbo);
 
     void enableVertexAttributePointer(int attributeLocation,
                                       int componentCount, int dataOffset);
 
+//    GLuint vao;
+//
+//    GLuint vbo;
 
-private:
-    GLuint vao;
 };
 
 

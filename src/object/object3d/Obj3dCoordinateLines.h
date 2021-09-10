@@ -21,17 +21,24 @@ public :
 
     void draw();
 
-//    void setColorShaderProgram(ColorShaderProgram _ColorShaderProgram);
+    GLuint vao;
+    GLuint vbo;
 
 private:
-    VertexArray *_VertexArray;
+
     float r = 3.f;
-    float vertexData[18] = {0.f, r, 0.f,
-                            0.f, -r, 0.f,
-                            -r, 0.f, 0.f,
-                            r, 0.f, 0.f,
-                            0.f, 0.f, -r,
-                            -0.f, 0.f, r};
+//    float vertexData[18] = {0.f, r, 0.f,
+//                            0.f, -r, 0.f,
+//                            -r, 0.f, 0.f,
+//                            r, 0.f, 0.f,
+//                            0.f, 0.f, -r,
+//                            -0.f, 0.f, r};
+
+    float vertexData[9] = {
+            -0.5f, -0.5f, 0.0f, // left
+            0.5f, -0.5f, 0.0f, // right
+            0.0f, 0.5f, 0.0f  // top
+    };
 };
 
 

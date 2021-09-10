@@ -7,8 +7,11 @@
 
 #include "../../include/matrixUtil/Mat4.h"
 #include "../../program/ColorShaderProgram.h"
+#include "../../arrays/VertexArray.h"
 
 using namespace cocos2d;
+
+class mat4;
 
 class Object3d {
 
@@ -29,7 +32,7 @@ public:
         if (!isBind) {
             bind();
         }
-        Mat4::multiply(viewProjectMatrix, modelMatrix, &mvpMatrix);
+//        Mat4::multiply(viewProjectMatrix, modelMatrix, &mvpMatrix);
         draw();
         unbind();
     }
@@ -41,6 +44,9 @@ public:
     }
 
 public:
+
+    VertexArray *_VertexArray;
+
     Mat4 mvpMatrix;
 
     Mat4 modelMatrix;

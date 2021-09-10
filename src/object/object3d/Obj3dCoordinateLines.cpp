@@ -6,8 +6,7 @@
 
 
 Obj3dCoordinateLines::Obj3dCoordinateLines() : Object3d() {
-    _VertexArray = new VertexArray(vertexData);
-
+    _VertexArray = new VertexArray(vertexData, sizeof(vertexData) / sizeof(*vertexData), vao, vbo);
 }
 
 Obj3dCoordinateLines::~Obj3dCoordinateLines() {
@@ -18,19 +17,21 @@ void Obj3dCoordinateLines::unbind() {
     Object3d::unbind();
 }
 
-void Obj3dCoordinateLines::draw() {
-    Object3d::draw();
-    _colorShaderProgram.userProgram();
-    printf("draw coordinateLines \n");
-}
 
 void Obj3dCoordinateLines::bind() {
     Object3d::bind();
-    _VertexArray->enableVertexAttributePointer(_colorShaderProgram.aPositionLocation, 2, 0);
 }
 
-//void Obj3dCoordinateLines::setColorShaderProgram(ColorShaderProgram _ColorShaderProgram) {
-//    Object3d::setColorShaderProgram(_ColorShaderProgram);
-//}
+void Obj3dCoordinateLines::draw() {
+    Object3d::draw();
+//    _colorShaderProgram.userProgram();
+    glBindVertexArray(vao);
+//    glLineWidth(10);
+//    glEnable(GL_DEPTH_TEST);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+//    glDisable(GL_DEPTH_TEST);
+//    printf("draw coordinateLines \n");
+}
+
 
 
