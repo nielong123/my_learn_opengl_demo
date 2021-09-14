@@ -32,7 +32,15 @@ public:
         if (!isBind) {
             bind();
         }
-//        Mat4::multiply(viewProjectMatrix, modelMatrix, &mvpMatrix);
+        Mat4::multiply(viewProjectMatrix, modelMatrix, &mvpMatrix);
+        draw();
+        unbind();
+    }
+
+    void drawTest(){
+        if (!isBind) {
+            bind();
+        }
         draw();
         unbind();
     }
@@ -50,6 +58,9 @@ public:
     Mat4 mvpMatrix;
 
     Mat4 modelMatrix;
+
+    GLuint vao;
+    GLuint vbo;
 
 private:
     bool isBind;

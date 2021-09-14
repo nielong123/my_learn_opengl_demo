@@ -21,8 +21,8 @@ public :
 
     void draw();
 
-    GLuint vao;
-    GLuint vbo;
+//    GLuint vao;
+//    GLuint vbo;
 
 private:
 

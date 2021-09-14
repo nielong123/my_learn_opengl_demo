@@ -17,6 +17,15 @@ public:
     ~Obj3dPoint();
 
     void draw();
+
+private:
+    float vertexData[9] = {
+            -0.6f, -0.3f, 0.1f, // left
+            0.8f, -0.56f, 0.0f, // right
+            0.24f, 0.1f, 0.9f  // top
+    };
+
+    void bind();
 };
 
 

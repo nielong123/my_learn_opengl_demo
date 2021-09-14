@@ -30,20 +30,6 @@ ColorShaderProgram *_ColorShaderProgram;
 
 Point *_viewCenterPoint;
 
-
-float vertices[] = {
-        -0.5f, -0.5f, 0.0f, // left
-        0.5f, -0.5f, 0.0f, // right
-        0.0f, 0.5f, 0.0f  // top
-};
-
-void testDraw(GLuint VAO) {
-    _ColorShaderProgram->userProgram();
-    glBindVertexArray(
-            VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-}
-
 int main() {
     std::cout << "Hello, World!" << std::endl;
     // glfw: initialize and configure
@@ -73,8 +59,7 @@ int main() {
         return -1;
     }
 
-//    initViewPoint();
-    GLuint vao, vbo;
+    initViewPoint();
     _ColorShaderProgram = new ColorShaderProgram();
 //    TestFunction::testInit111(vertices, sizeof(vertices) / sizeof(*vertices), vao, vbo);
 //    TestFunction::testInit(vao, vbo);
@@ -82,11 +67,13 @@ int main() {
 //    testInit();
 
     std::vector<Object3d *> mObjectVector;
+
 //    Obj3dPoint *_Obj3dPoint = new Obj3dPoint();
 //    _Obj3dPoint->setColorShaderProgram(*_ColorShaderProgram);
-    Obj3dCoordinateLines *_Obj3dCoordinateLines = new Obj3dCoordinateLines();
-//    _Obj3dCoordinateLines->setColorShaderProgram(*_ColorShaderProgram);
 //    mObjectVector.push_back(static_cast<Object3d *>(_Obj3dPoint));
+
+    Obj3dCoordinateLines *_Obj3dCoordinateLines = new Obj3dCoordinateLines();
+    _Obj3dCoordinateLines->setColorShaderProgram(*_ColorShaderProgram);
     mObjectVector.push_back(static_cast<Object3d *>(_Obj3dCoordinateLines));
 
     // render loop
@@ -101,10 +88,10 @@ int main() {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         for (Object3d *item : mObjectVector) {
-////            Mat4 mat = _VaryTools->getViewProjectionMatrix();
-////            item->draw(mat);
+//            Mat4 mat = _VaryTools->getViewProjectionMatrix();
+//            item->draw(mat);
 //        _ColorShaderProgram->userProgram();
-            item->draw();
+            item->drawTest();
 //        printf("glGetError() = %d \n", glGetError());
 //        testDraw(vao);
         }
