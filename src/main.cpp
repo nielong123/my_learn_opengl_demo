@@ -88,11 +88,11 @@ int main() {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         for (Object3d *item : mObjectVector) {
-//            Mat4 mat = _VaryTools->getViewProjectionMatrix();
+            Mat4 mat = _VaryTools->getViewProjectionMatrix();
 //            item->draw(mat);
 //        _ColorShaderProgram->userProgram();
             item->drawTest();
-//        printf("glGetError() = %d \n", glGetError());
+            printf("glGetError() = %d \n", glGetError());
 //        testDraw(vao);
         }
 

@@ -32,6 +32,7 @@ public:
 //                                              "}\0";
     inline static const char *VERTEX_SHADER = "#version 330 core\n"
                                               "layout (location = 0) in vec3 aPos;\n"
+                                              "\n"
                                               "void main()\n"
                                               "{\n"
                                               "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
@@ -40,9 +41,11 @@ public:
 
     inline static const char *FRAGMENT_SHADER = "#version 330 core\n"
                                                 "out vec4 FragColor;\n"
+                                                "\n"
+                                                "uniform vec4 ourColor;\n"
                                                 "void main()\n"
                                                 "{\n"
-                                                "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+                                                "   FragColor = ourColor;\n"
                                                 "}\n\0";
 };
 

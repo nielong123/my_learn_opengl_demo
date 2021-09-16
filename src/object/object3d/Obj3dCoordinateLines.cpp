@@ -21,6 +21,7 @@ void Obj3dCoordinateLines::unbind() {
 void Obj3dCoordinateLines::bind() {
     Object3d::bind();
     glUniformMatrix4fv(1, 1, false, mvpMatrix.m);
+    glUniform4f(_colorShaderProgram.aColorLocation, 0.4f, 0.47f, 0.6f, 0.36f);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) 0);
     glEnableVertexAttribArray(0);
