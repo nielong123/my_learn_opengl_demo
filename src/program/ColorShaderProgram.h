@@ -23,13 +23,7 @@ public:
     int aPointSizeLocation;
 
 public:
-//    inline static const char *VERTEX_SHADER = "#version 330 core\n"
-//                                              "layout (location = 0) in vec4 aPos;\n"
-//                                              "uniform mat4 aMatrix;\n"
-//                                              "void main()\n"
-//                                              "{\n"
-//                                              "   gl_Position = aPos * aMatrix;\n"
-//                                              "}\0";
+
     inline static const char *VERTEX_SHADER = "#version 330 core\n"
                                               "layout (location = 0) in vec3 aPos;\n"
                                               "\n"
@@ -41,11 +35,13 @@ public:
 
     inline static const char *FRAGMENT_SHADER = "#version 330 core\n"
                                                 "out vec4 FragColor;\n"
+                                                "uniform vec4 aColor;\n"
                                                 "\n"
-                                                "uniform vec4 ourColor;\n"
+                                                "in vec4 outColor;\n"
+                                                "\n"
                                                 "void main()\n"
                                                 "{\n"
-                                                "   FragColor = ourColor;\n"
+                                                "   FragColor = aColor;\n"
                                                 "}\n\0";
 };
 

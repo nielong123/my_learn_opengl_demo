@@ -11,7 +11,7 @@ ColorShaderProgram::ColorShaderProgram() :
         ShaderProgram(VERTEX_SHADER, FRAGMENT_SHADER) {
     glUseProgram(programId);
 //    aMatrixLocation = glGetUniformLocation(programId, Constants::U_MATRIX);
-//    aPositionLocation = glGetAttribLocation(programId, Constants::A_POSITION);
+    aPositionLocation = glGetAttribLocation(programId, Constants::A_POSITION);
     aColorLocation = glGetUniformLocation(programId, Constants::A_COLOR);
 //    aPointSizeLocation = glGetUniformLocation(programId, Constants::A_POINTSIZE);
     printf("111");
