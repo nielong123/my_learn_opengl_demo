@@ -52,7 +52,7 @@ int main() {
     }
     glfwMakeContextCurrent(window);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-// glad: load all OpenGL function pointers
+    // glad: load all OpenGL function pointers
     // ---------------------------------------
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress)) {
         std::cout << "Failed to initialize GLAD" << std::endl;
@@ -61,10 +61,6 @@ int main() {
 
     initViewPoint();
     _ColorShaderProgram = new ColorShaderProgram();
-//    TestFunction::testInit111(vertices, sizeof(vertices) / sizeof(*vertices), vao, vbo);
-//    TestFunction::testInit(vao, vbo);
-
-//    testInit();
 
     std::vector<Object3d *> mObjectVector;
 
@@ -76,6 +72,8 @@ int main() {
     _Obj3dCoordinateLines->setColorShaderProgram(*_ColorShaderProgram);
     mObjectVector.push_back(static_cast<Object3d *>(_Obj3dCoordinateLines));
 
+    Mat4 mat = _VaryTools->getViewProjectionMatrix();
+    mat.translate(0.1, 0.1, 0.1);
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window)) {
@@ -87,13 +85,13 @@ int main() {
         // ------
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+
         for (Object3d *item : mObjectVector) {
-            Mat4 mat = _VaryTools->getViewProjectionMatrix();
-//            item->draw(mat);
+
 //        _ColorShaderProgram->userProgram();
-            item->drawTest();
+            item->draw(mat);
+//            item->drawTest();
             printf("glGetError() = %d \n", glGetError());
-//        testDraw(vao);
         }
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)

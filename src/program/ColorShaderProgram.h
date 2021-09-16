@@ -26,10 +26,11 @@ public:
 
     inline static const char *VERTEX_SHADER = "#version 330 core\n"
                                               "layout (location = 0) in vec3 aPos;\n"
+                                              "uniform mat4 aMatrix;"
                                               "\n"
                                               "void main()\n"
                                               "{\n"
-                                              "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+                                              "   gl_Position = aMatrix * vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
                                               "}\0";
 
 
@@ -42,7 +43,7 @@ public:
                                                 "void main()\n"
                                                 "{\n"
                                                 "   FragColor = aColor;\n"
-                                                "}\n\0";
+                                                "}\0";
 };
 
 

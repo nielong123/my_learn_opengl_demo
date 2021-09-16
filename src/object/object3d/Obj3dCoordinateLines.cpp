@@ -20,9 +20,6 @@ void Obj3dCoordinateLines::unbind() {
 
 void Obj3dCoordinateLines::bind() {
     Object3d::bind();
-//    glUniformMatrix4fv(1, 1, false, mvpMatrix.m);
-
-    glUniform4f(_colorShaderProgram.aColorLocation, 0.3f, 0.3f, 0.3f, 0.3f);
 
     glVertexAttribPointer(_colorShaderProgram.aPositionLocation, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) 0);
     glEnableVertexAttribArray(0);
@@ -38,6 +35,12 @@ void Obj3dCoordinateLines::bind() {
 void Obj3dCoordinateLines::draw() {
     Object3d::draw();
 //    _colorShaderProgram.userProgram();
+    glUniform4f(_colorShaderProgram.aColorLocation, 0.3f, 0.3f, 0.3f, 0.3f);
+    Mat4 testmatrix = Mat4::IDENTITY;
+    testmatrix.translate(0.1f,0.1f,0.0f);
+//    glUniformMatrix4fv(_colorShaderProgram.aMatrixLocation, 1, GL_FALSE, Mat4::IDENTITY.m);
+    glUniformMatrix4fv(_colorShaderProgram.aMatrixLocation, 1, GL_FALSE, testmatrix.m);
+
     glBindVertexArray(vao);
 //    glLineWidth(10);
 //    glEnable(GL_DEPTH_TEST);

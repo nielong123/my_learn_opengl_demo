@@ -37,7 +37,7 @@ public:
         unbind();
     }
 
-    void drawTest(){
+    void drawTest() {
         if (!isBind) {
             bind();
         }
