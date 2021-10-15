@@ -11,6 +11,7 @@
 #include "geometry/Point.h"
 #include "object/object3d/Obj3dCoordinateLines.h"
 #include "object/TestFunction.h"
+#include "object/object3d/test/Obj3dTriangle.h"
 
 using namespace std;
 
@@ -68,9 +69,13 @@ int main() {
 //    _Obj3dPoint->setColorShaderProgram(*_ColorShaderProgram);
 //    mObjectVector.push_back(static_cast<Object3d *>(_Obj3dPoint));
 
-    Obj3dCoordinateLines *_Obj3dCoordinateLines = new Obj3dCoordinateLines();
-    _Obj3dCoordinateLines->setColorShaderProgram(*_ColorShaderProgram);
-    mObjectVector.push_back(static_cast<Object3d *>(_Obj3dCoordinateLines));
+//    Obj3dCoordinateLines *_Obj3dCoordinateLines = new Obj3dCoordinateLines();
+//    _Obj3dCoordinateLines->setColorShaderProgram(*_ColorShaderProgram);
+//    mObjectVector.push_back(static_cast<Object3d *>(_Obj3dCoordinateLines));
+
+    Obj3dTriangle *_Obj3dTriangle = new Obj3dTriangle();
+    _Obj3dTriangle->setColorShaderProgram(*_ColorShaderProgram);
+    mObjectVector.push_back(static_cast<Object3d *>(_Obj3dTriangle));
 
     Mat4 mat = _VaryTools->getViewProjectionMatrix();
     mat.translate(0.1, 0.1, 0.1);

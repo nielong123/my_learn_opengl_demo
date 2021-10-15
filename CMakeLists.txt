@@ -54,7 +54,11 @@ add_executable(testCpp
         src/object/object3d/Obj3dCoordinateLines.cpp
         src/object/object3d/Obj3dCoordinateLines.h
         src/arrays/VertexArray.cpp
-        src/arrays/VertexArray.h src/object/TestFunction.cpp src/object/TestFunction.h)
+        src/arrays/VertexArray.h
+        src/object/TestFunction.cpp
+        src/object/TestFunction.h
+        src/object/object3d/test/Obj3dTriangle.cpp
+        src/object/object3d/test/Obj3dTriangle.h)
 
 target_link_libraries(testCpp
         glfw
