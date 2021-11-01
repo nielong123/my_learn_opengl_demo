@@ -12,6 +12,8 @@ public :
 
     virtual void userProgram();
 
+    virtual void deleteProgram();
+
     int getProgramId();
 
     int programId;

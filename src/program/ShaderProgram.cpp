@@ -19,4 +19,8 @@ int ShaderProgram::getProgramId() {
     return programId;
 }
 
+void ShaderProgram::deleteProgram() {
+    glDeleteProgram(programId);
+}
+
 
