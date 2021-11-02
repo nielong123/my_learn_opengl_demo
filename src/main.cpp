@@ -66,14 +66,17 @@ int main() {
     initViewPoint();
 
     std::vector<Object3d *> mObjectVector;
-
+    Obj3dCoordinateLines *_Obj3dCoordinateLines = new Obj3dCoordinateLines();
+    _Obj3dCoordinateLines->setColorShaderProgram(*_ColorShaderProgram);
+    mObjectVector.push_back(static_cast<Object3d *>(_Obj3dCoordinateLines));
 
     Obj3dTriangle *_Obj3dTriangle = new Obj3dTriangle();
     _Obj3dTriangle->setColorShaderProgram(*_ColorShaderProgram);
     mObjectVector.push_back(static_cast<Object3d *>(_Obj3dTriangle));
 
     Mat4 mat = _VaryTools->getViewProjectionMatrix();
-    mat.translate(0.1, 0.1, 0.1);
+    _ColorShaderProgram->userProgram();
+//    mat.translate(0.1, 0.1, 0.1);
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window)) {
@@ -86,13 +89,10 @@ int main() {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        _ColorShaderProgram->userProgram();
-
         for (Object3d *item : mObjectVector) {
 
             item->draw(mat);
-//            item->drawTest();
-//            printf("glGetError() = %d \n", glGetError());
+            printf("glGetError() = %d \n", glGetError());
         }
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
@@ -104,6 +104,8 @@ int main() {
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
     glfwTerminate();
+
+    _ColorShaderProgram->deleteProgram();
 
 
     return 0;

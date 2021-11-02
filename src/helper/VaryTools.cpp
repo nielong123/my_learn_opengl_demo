@@ -36,8 +36,6 @@ void VaryTools::setProjection(int width, int height) {
 }
 
 Mat4 VaryTools::getViewProjectionMatrix() {
-//    Mat4 ans = Mat4::IDENTITY;
-//    Mat4::multiply(ans, Mat4::IDENTITY, &ans);
     Mat4::multiply(projectionMatrix, viewMatrix, &viewProjectionMatrix);
     return viewProjectionMatrix;
 }

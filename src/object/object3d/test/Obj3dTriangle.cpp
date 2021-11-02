@@ -16,7 +16,6 @@ Obj3dTriangle::~Obj3dTriangle() {
 void Obj3dTriangle::unbind() {
     Object3d::unbind();
     glDisableVertexAttribArray(0);
-    _colorShaderProgram.deleteProgram();
 }
 
 void Obj3dTriangle::bind() {
@@ -26,7 +25,6 @@ void Obj3dTriangle::bind() {
 
 void Obj3dTriangle::draw() {
     Object3d::draw();
-    _colorShaderProgram.userProgram();
     glEnableVertexAttribArray(0);
     glUniform3f(_colorShaderProgram.aColorLocation, 0.3f, 1.0f, 1.f);
     glUniformMatrix4fv(_colorShaderProgram.aMatrixLocation, 1, GL_FALSE, mvpMatrix.m);
