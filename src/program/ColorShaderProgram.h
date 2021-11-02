@@ -14,7 +14,9 @@ public:
 
     ~ColorShaderProgram();
 
-    void userProgram();
+    void userProgram() override;
+
+    void deleteProgram() override;
 
 public:
     int aPositionLocation;
@@ -26,24 +28,30 @@ public:
 
     inline static const char *VERTEX_SHADER = "#version 330 core\n"
                                               "layout (location = 0) in vec3 aPos;\n"
-                                              "uniform mat4 aMatrix;"
+                                              "\n"
+                                              "uniform mat4 aMatrix;\n"
+                                              "uniform vec3 aColor;\n"
+                                              "\n"
+                                              "out vec4 VColor;\n"
                                               "\n"
                                               "void main()\n"
                                               "{\n"
                                               "   gl_Position = aMatrix * vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-                                              "}\0";
+                                              //   "   VColor = vec4(1.f,1.f,1.f, 1.f);\n"
+                                              "   VColor = vec4(aColor, 1.f);\n"
+                                              "}\n\0";
 
 
     inline static const char *FRAGMENT_SHADER = "#version 330 core\n"
-                                                "out vec4 FragColor;\n"
-                                                "uniform vec4 aColor;\n"
                                                 "\n"
-                                                "in vec4 outColor;\n"
+                                                "out vec4 color;\n"
+                                                "in vec4 VColor;\n"
                                                 "\n"
                                                 "void main()\n"
                                                 "{\n"
-                                                "   FragColor = aColor;\n"
-                                                "}\0";
+                                                "   color = VColor;\n"
+                                                //                                                "   color = vec4(0.9f,0.5f,0.9f,0.5f);\n"
+                                                "}\n\0";
 };
 
 

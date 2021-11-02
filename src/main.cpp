@@ -31,6 +31,7 @@ ColorShaderProgram *_ColorShaderProgram;
 
 Point *_viewCenterPoint;
 
+
 int main() {
     std::cout << "Hello, World!" << std::endl;
     // glfw: initialize and configure
@@ -60,18 +61,12 @@ int main() {
         return -1;
     }
 
-    initViewPoint();
     _ColorShaderProgram = new ColorShaderProgram();
+
+    initViewPoint();
 
     std::vector<Object3d *> mObjectVector;
 
-//    Obj3dPoint *_Obj3dPoint = new Obj3dPoint();
-//    _Obj3dPoint->setColorShaderProgram(*_ColorShaderProgram);
-//    mObjectVector.push_back(static_cast<Object3d *>(_Obj3dPoint));
-
-//    Obj3dCoordinateLines *_Obj3dCoordinateLines = new Obj3dCoordinateLines();
-//    _Obj3dCoordinateLines->setColorShaderProgram(*_ColorShaderProgram);
-//    mObjectVector.push_back(static_cast<Object3d *>(_Obj3dCoordinateLines));
 
     Obj3dTriangle *_Obj3dTriangle = new Obj3dTriangle();
     _Obj3dTriangle->setColorShaderProgram(*_ColorShaderProgram);
@@ -89,14 +84,15 @@ int main() {
         // render
         // ------
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+        _ColorShaderProgram->userProgram();
 
         for (Object3d *item : mObjectVector) {
 
-//        _ColorShaderProgram->userProgram();
             item->draw(mat);
 //            item->drawTest();
-            printf("glGetError() = %d \n", glGetError());
+//            printf("glGetError() = %d \n", glGetError());
         }
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
@@ -124,7 +120,7 @@ void processInput(GLFWwindow *window) {
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
     // make sure the viewport matches the new window dimensions; note that width and
     // height will be significantly larger than specified on retina displays.
-    glViewport(0, 0, width, height);
+    glViewport(_viewCenterPoint->x, _viewCenterPoint->y, width, height);
 }
 
 GLvoid initViewPoint() {

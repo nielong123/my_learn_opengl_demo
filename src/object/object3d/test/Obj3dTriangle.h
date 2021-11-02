@@ -15,11 +15,11 @@ public :
 
     virtual ~Obj3dTriangle();
 
-    void bind();
+    void bind() override;
 
-    void unbind();
+    void unbind() override;
 
-    void draw();
+    void draw() override;
 
 private:
 

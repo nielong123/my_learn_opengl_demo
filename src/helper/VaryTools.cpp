@@ -32,11 +32,12 @@ void VaryTools::scale(float x, float y, float z) {
 }
 
 void VaryTools::setProjection(int width, int height) {
-    Mat4::createPerspective(100, 35, width, height, &projectionMatrix);
+    Mat4::createPerspective(10, (float) width / (float) height, 1, 100, &projectionMatrix);
 }
 
 Mat4 VaryTools::getViewProjectionMatrix() {
-    Mat4 ans = Mat4::IDENTITY;
-    Mat4::multiply(ans, viewMatrix, &ans);
-    return ans;
+//    Mat4 ans = Mat4::IDENTITY;
+//    Mat4::multiply(ans, Mat4::IDENTITY, &ans);
+    Mat4::multiply(projectionMatrix, viewMatrix, &viewProjectionMatrix);
+    return viewProjectionMatrix;
 }

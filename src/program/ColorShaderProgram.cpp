@@ -10,11 +10,10 @@
 ColorShaderProgram::ColorShaderProgram() :
         ShaderProgram(VERTEX_SHADER, FRAGMENT_SHADER) {
     glUseProgram(programId);
-    aPositionLocation = glGetAttribLocation(programId, Constants::A_POSITION);
+//    aPositionLocation = glGetAttribLocation(programId, Constants::A_POSITION);
     aMatrixLocation = glGetUniformLocation(programId, Constants::A_MATRIX);
     aColorLocation = glGetUniformLocation(programId, Constants::A_COLOR);
 //    aPointSizeLocation = glGetUniformLocation(programId, Constants::A_POINTSIZE);
-    printf("111");
 }
 
 ColorShaderProgram::~ColorShaderProgram() {
@@ -23,4 +22,8 @@ ColorShaderProgram::~ColorShaderProgram() {
 
 void ColorShaderProgram::userProgram() {
     ShaderProgram::userProgram();
+}
+
+void ColorShaderProgram::deleteProgram() {
+    ShaderProgram::deleteProgram();
 }
