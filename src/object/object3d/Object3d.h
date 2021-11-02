@@ -11,8 +11,6 @@
 
 using namespace cocos2d;
 
-class mat4;
-
 class Object3d {
 
 public:

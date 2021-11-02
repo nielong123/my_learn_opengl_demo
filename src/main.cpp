@@ -72,6 +72,7 @@ int main() {
 
     Obj3dTriangle *_Obj3dTriangle = new Obj3dTriangle();
     _Obj3dTriangle->setColorShaderProgram(*_ColorShaderProgram);
+    _Obj3dTriangle->setColor(0x00ffffff);
     mObjectVector.push_back(static_cast<Object3d *>(_Obj3dTriangle));
 
     Mat4 mat = _VaryTools->getViewProjectionMatrix();

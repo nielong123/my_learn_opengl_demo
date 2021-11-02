@@ -5,9 +5,10 @@
 #ifndef TESTCPP_OBJ3DTRIANGLE_H
 #define TESTCPP_OBJ3DTRIANGLE_H
 
-
+#include <glad/glad.h>
 #include "../Object3d.h"
 #include "../../../arrays/VertexArray.h"
+
 
 class Obj3dTriangle : virtual public Object3d {
 public :
@@ -21,6 +22,8 @@ public :
 
     void draw() override;
 
+    void setColor(int hexARGBColor);
+
 private:
 
     float vertexData[9] = {
@@ -28,6 +31,8 @@ private:
             0.5f, -0.5f, 0.0f, // right
             0.0f, 0.5f, 0.0f  // top
     };
+
+    float color[4];
 };
 
 
