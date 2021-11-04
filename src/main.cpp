@@ -9,7 +9,6 @@
 #include "geometry/Point.h"
 #include "object/object3d/Obj3dCoordinateLines.h"
 #include "object/object3d/test/Obj3dTriangle.h"
-#include "cmath"
 
 using namespace std;
 
@@ -22,6 +21,8 @@ void mouse_pos_callback(GLFWwindow *window, double xPos, double yPos);
 void mouse_btn_callback(GLFWwindow *window, int btn, int action, int mods);
 
 void mouse_mid_scroll_callback(GLFWwindow *window, double xOffset, double yOffset);
+
+void renderFrame();
 
 GLvoid initViewPoint();
 
@@ -36,17 +37,13 @@ ColorShaderProgram *_ColorShaderProgram;
 Point *_viewCenterPoint;
 
 //鼠标位置
-double mouse_x, mouse_y;
-//鼠标点击位置
-double mouse_hit_x = -1, mouse_hit_y = -1;
-//鼠标拖动位置
-double move_pos_x, move_pos_y;
+double mouse_x = -1, mouse_y = -1;
+//开始渲染
+bool isRender = true;
+
 
 //鼠标左键是否按下
-bool isLeftBtnClicked = false;
-
-//鼠标滚轮是否按下
-bool isMidBtnClicked = false;
+bool isLeftBtnClicked = false, isRightBtnClicked = false;
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
@@ -85,7 +82,6 @@ int main() {
 
     initViewPoint();
 
-
     std::vector<Object3d *> mObjectVector;
     Obj3dCoordinateLines *_Obj3dCoordinateLines = new Obj3dCoordinateLines();
     _Obj3dCoordinateLines->setColorShaderProgram(*_ColorShaderProgram);
@@ -106,15 +102,15 @@ int main() {
 
         // render
         // ------
+//        if (isRender) {
+//            isRender = false;
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         for (Object3d *item : mObjectVector) {
-
             item->draw(_VaryTools->getViewProjectionMatrix());
-//            printf("glGetError() = %d \n", glGetError());
         }
-
+//        }
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
         glfwSwapBuffers(window);
@@ -134,21 +130,36 @@ void mouse_mid_scroll_callback(GLFWwindow *window, double xOffset, double yOffse
     double scale = 1 + yOffset / 20;
     printf("scale = %lf \n", scale);
     _VaryTools->scale(scale);
+    renderFrame();
 }
 
 void mouse_pos_callback(GLFWwindow *window, double xPos, double yPos) {
-    mouse_x = xPos;
-    mouse_y = yPos;
     if (isLeftBtnClicked) {
-        if (mouse_hit_x != -1 && mouse_hit_y != -1) {
-            move_pos_x = mouse_x - mouse_hit_x;
-            move_pos_y = mouse_y - mouse_hit_y;
-            int dis = ::sqrt(::pow((mouse_x - mouse_hit_x), 2) + ::pow((mouse_y - mouse_hit_y), 2));
-            mouse_hit_x = -1;
-            mouse_hit_y = -1;
+        if (mouse_x != -1 && mouse_y != -1) {
+            float move_pos_x = xPos - mouse_x;
+            float move_pos_y = yPos - mouse_y;
+//            if (move_pos_x > 1 || move_pos_y > 1) {
+            _VaryTools->rotate(0.1, move_pos_y, move_pos_x, 0);
+            renderFrame();
+//            }
+//            printf("mouse_x = %f \n", move_pos_x);
+//            printf("mouse_y = %f \n", move_pos_y);
         }
-        printf("mouse_pos_callback mouse_x = %d \n", mouse_x);
-        printf("mouse_pos_callback mouse_y = %d \n", mouse_y);
+        mouse_x = xPos;
+        mouse_y = yPos;
+        return;
+    }
+    if (isRightBtnClicked) {
+        if (mouse_x != -1 && mouse_y != -1) {
+            float move_pos_x = (xPos - mouse_x) / 100;
+            float move_pos_y = -(yPos - mouse_y) / 100;
+            _VaryTools->translate(move_pos_x, move_pos_y, 0);
+//            printf("mouse_x = %f \n", move_pos_x);
+//            printf("mouse_y = %f \n", move_pos_y);
+            renderFrame();
+        }
+        mouse_x = xPos;
+        mouse_y = yPos;
     }
 }
 
@@ -156,27 +167,34 @@ void mouse_btn_callback(GLFWwindow *window, int btn, int action, int mods) {
     //鼠标左键按下
     if (action == GLFW_PRESS && btn == GLFW_MOUSE_BUTTON_LEFT) {
         isLeftBtnClicked = true;
-        mouse_hit_x = mouse_x;
-        mouse_hit_y = mouse_y;
-        printf("mouse_hit_x  = %d \n", mouse_hit_x);
-        printf("mouse_hit_y  = %d \n", mouse_hit_y);
-        std::cout << "left down" << std::endl;
-        return;
-    } else
-        //鼠标左键抬起
-    if (action == GLFW_RELEASE && btn == GLFW_MOUSE_BUTTON_LEFT) {
-        isLeftBtnClicked = false;
-        mouse_hit_x = -1;
-        mouse_hit_y = -1;
-        std::cout << "left release" << std::endl;
         return;
     }
+    //鼠标左键抬起
+    if (action == GLFW_RELEASE && btn == GLFW_MOUSE_BUTTON_LEFT) {
+        isLeftBtnClicked = false;
+        mouse_x = -1;
+        mouse_y = -1;
+        return;
+    }
+    //鼠标右键按下
+    if (action == GLFW_PRESS && btn == GLFW_MOUSE_BUTTON_RIGHT) {
+        isRightBtnClicked = true;
+        return;
+    }
+    //鼠标右键抬起
+    if (action == GLFW_RELEASE && btn == GLFW_MOUSE_BUTTON_RIGHT) {
+        isRightBtnClicked = false;
+        mouse_x = -1;
+        mouse_y = -1;
+        return;
+    }
+    //鼠标滚轮按下
     if (action == GLFW_PRESS && btn == GLFW_MOUSE_BUTTON_MIDDLE) {
         _VaryTools->resetVPMatrix();
+        renderFrame();
         return;
     }
 }
-
 
 void processInput(GLFWwindow *window) {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -198,6 +216,10 @@ GLvoid initViewPoint() {
                           _viewCenterPoint->x, _viewCenterPoint->y, _viewCenterPoint->z,
                           0.f, 1.f, 0.f);
     _VaryTools->setProjection(screen_width, screen_height);
+}
+
+void renderFrame() {
+    isRender = true;
 }
 
 

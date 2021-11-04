@@ -21,28 +21,33 @@ void VaryTools::setCamera(float ex, float ey, float ez, float cx, float cy, floa
 }
 
 void VaryTools::resetVPMatrix() {
+    viewProjectionMatrix = Mat4::IDENTITY;
     projectionMatrix = orgProjectMatrix;
     viewMatrix = orgViewMatrix;
 }
 
 void VaryTools::translate(float x, float y, float z) {
-    projectionMatrix.translate(x, y, z);
+    viewProjectionMatrix.translate(x, y, z);
 }
 
 void VaryTools::scale(float x, float y, float z) {
-    projectionMatrix.scale(y);
+    viewProjectionMatrix.scale(x, y, z);
+}
+
+void VaryTools::scale(float scale) {
+    viewProjectionMatrix.scale(scale);
 }
 
 void VaryTools::setProjection(int width, int height) {
-    Mat4::createPerspective(35, (float) width / (float) height, 1, 100, &projectionMatrix);
+    Mat4::createPerspective(25, (float) width / (float) height, 1, 100, &projectionMatrix);
     orgProjectMatrix = projectionMatrix;
 }
 
 Mat4 VaryTools::getViewProjectionMatrix() {
-    Mat4::multiply(projectionMatrix, viewMatrix, &viewProjectionMatrix);
-//    printf("multiply after");
-//    print4x4Matrix(viewProjectionMatrix.m);
-    return viewProjectionMatrix;
+    Mat4 ans = Mat4::IDENTITY;
+    Mat4::multiply(viewMatrix, viewProjectionMatrix, &ans);
+    Mat4::multiply(projectionMatrix, ans, &ans);
+    return ans;
 }
 
 void VaryTools::print4x4Matrix(Mat4 mat4) {
@@ -54,8 +59,4 @@ void VaryTools::print4x4Matrix(Mat4 mat4) {
     printf("%f %f %f %f \n", mat4.m[8], mat4.m[9], mat4.m[10], mat4.m[11]);
     printf("%f %f %f %f \n", mat4.m[12], mat4.m[13], mat4.m[14], mat4.m[15]);
     printf("/***********************************/\n");
-}
-
-void VaryTools::scale(float scale) {
-    projectionMatrix.scale(scale);
 }

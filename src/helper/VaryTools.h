@@ -48,11 +48,11 @@ public:
     static void print4x4Matrix(Mat4 mat4);
 
 private:
-    Mat4 viewMatrix;
-    Mat4 orgViewMatrix;
-    Mat4 projectionMatrix;
-    Mat4 orgProjectMatrix;
-    Mat4 viewProjectionMatrix;
+    Mat4 viewMatrix;        //相机
+    Mat4 orgViewMatrix;     //原始相机
+    Mat4 projectionMatrix;      //投影
+    Mat4 orgProjectMatrix;      //原始投影
+    Mat4 viewProjectionMatrix;      //总矩阵
 };
 
 
