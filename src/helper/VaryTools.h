@@ -5,6 +5,9 @@
 #ifndef TESTCPP_VARYTOOLS_H
 #define TESTCPP_VARYTOOLS_H
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include "../include/matrixUtil/Mat4.h"
 
 using namespace cocos2d;
@@ -29,6 +32,9 @@ public:
     //缩放变换
     void scale(float x, float y, float z);
 
+    //缩放变换
+    void scale(float scale);
+
     //初始化投影
     void setProjection(int width, int height);
 
@@ -37,9 +43,15 @@ public:
 
     Mat4 getViewProjectionMatrix();
 
+public:
+
+    static void print4x4Matrix(Mat4 mat4);
+
 private:
     Mat4 viewMatrix;
+    Mat4 orgViewMatrix;
     Mat4 projectionMatrix;
+    Mat4 orgProjectMatrix;
     Mat4 viewProjectionMatrix;
 };
 

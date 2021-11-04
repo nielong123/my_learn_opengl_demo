@@ -5,19 +5,23 @@
 #include <vector>
 #include "memory"
 #include "program/ColorShaderProgram.h"
-#include "program/TextureShaderProgram.h"
-#include "object/object3d/Obj3dPoint.h"
 #include "helper/VaryTools.h"
 #include "geometry/Point.h"
 #include "object/object3d/Obj3dCoordinateLines.h"
-#include "object/TestFunction.h"
 #include "object/object3d/test/Obj3dTriangle.h"
+#include "cmath"
 
 using namespace std;
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 
 void processInput(GLFWwindow *window);
+
+void mouse_pos_callback(GLFWwindow *window, double xPos, double yPos);
+
+void mouse_btn_callback(GLFWwindow *window, int btn, int action, int mods);
+
+void mouse_mid_scroll_callback(GLFWwindow *window, double xOffset, double yOffset);
 
 GLvoid initViewPoint();
 
@@ -31,6 +35,18 @@ ColorShaderProgram *_ColorShaderProgram;
 
 Point *_viewCenterPoint;
 
+//鼠标位置
+double mouse_x, mouse_y;
+//鼠标点击位置
+double mouse_hit_x = -1, mouse_hit_y = -1;
+//鼠标拖动位置
+double move_pos_x, move_pos_y;
+
+//鼠标左键是否按下
+bool isLeftBtnClicked = false;
+
+//鼠标滚轮是否按下
+bool isMidBtnClicked = false;
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
@@ -61,9 +77,14 @@ int main() {
         return -1;
     }
 
+    glfwSetCursorPosCallback(window, mouse_pos_callback);
+    glfwSetMouseButtonCallback(window, mouse_btn_callback);
+    glfwSetScrollCallback(window, mouse_mid_scroll_callback);
+
     _ColorShaderProgram = new ColorShaderProgram();
 
     initViewPoint();
+
 
     std::vector<Object3d *> mObjectVector;
     Obj3dCoordinateLines *_Obj3dCoordinateLines = new Obj3dCoordinateLines();
@@ -75,9 +96,7 @@ int main() {
     _Obj3dTriangle->setColor(0x00ffffff);
     mObjectVector.push_back(static_cast<Object3d *>(_Obj3dTriangle));
 
-    Mat4 mat = _VaryTools->getViewProjectionMatrix();
     _ColorShaderProgram->userProgram();
-//    mat.translate(0.1, 0.1, 0.1);
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window)) {
@@ -92,8 +111,8 @@ int main() {
 
         for (Object3d *item : mObjectVector) {
 
-            item->draw(mat);
-            printf("glGetError() = %d \n", glGetError());
+            item->draw(_VaryTools->getViewProjectionMatrix());
+//            printf("glGetError() = %d \n", glGetError());
         }
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
@@ -108,8 +127,54 @@ int main() {
 
     _ColorShaderProgram->deleteProgram();
 
-
     return 0;
+}
+
+void mouse_mid_scroll_callback(GLFWwindow *window, double xOffset, double yOffset) {
+    double scale = 1 + yOffset / 20;
+    printf("scale = %lf \n", scale);
+    _VaryTools->scale(scale);
+}
+
+void mouse_pos_callback(GLFWwindow *window, double xPos, double yPos) {
+    mouse_x = xPos;
+    mouse_y = yPos;
+    if (isLeftBtnClicked) {
+        if (mouse_hit_x != -1 && mouse_hit_y != -1) {
+            move_pos_x = mouse_x - mouse_hit_x;
+            move_pos_y = mouse_y - mouse_hit_y;
+            int dis = ::sqrt(::pow((mouse_x - mouse_hit_x), 2) + ::pow((mouse_y - mouse_hit_y), 2));
+            mouse_hit_x = -1;
+            mouse_hit_y = -1;
+        }
+        printf("mouse_pos_callback mouse_x = %d \n", mouse_x);
+        printf("mouse_pos_callback mouse_y = %d \n", mouse_y);
+    }
+}
+
+void mouse_btn_callback(GLFWwindow *window, int btn, int action, int mods) {
+    //鼠标左键按下
+    if (action == GLFW_PRESS && btn == GLFW_MOUSE_BUTTON_LEFT) {
+        isLeftBtnClicked = true;
+        mouse_hit_x = mouse_x;
+        mouse_hit_y = mouse_y;
+        printf("mouse_hit_x  = %d \n", mouse_hit_x);
+        printf("mouse_hit_y  = %d \n", mouse_hit_y);
+        std::cout << "left down" << std::endl;
+        return;
+    } else
+        //鼠标左键抬起
+    if (action == GLFW_RELEASE && btn == GLFW_MOUSE_BUTTON_LEFT) {
+        isLeftBtnClicked = false;
+        mouse_hit_x = -1;
+        mouse_hit_y = -1;
+        std::cout << "left release" << std::endl;
+        return;
+    }
+    if (action == GLFW_PRESS && btn == GLFW_MOUSE_BUTTON_MIDDLE) {
+        _VaryTools->resetVPMatrix();
+        return;
+    }
 }
 
 
@@ -134,3 +199,6 @@ GLvoid initViewPoint() {
                           0.f, 1.f, 0.f);
     _VaryTools->setProjection(screen_width, screen_height);
 }
+
+
+
