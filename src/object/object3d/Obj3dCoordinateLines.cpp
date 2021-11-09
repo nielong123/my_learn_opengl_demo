@@ -3,9 +3,11 @@
 //
 
 #include "Obj3dCoordinateLines.h"
+#include "../../include/tools/ColorHelper.h"
 
 
 Obj3dCoordinateLines::Obj3dCoordinateLines() : Object3d() {
+    Object3d();
     _VertexArray = new VertexArray(vertexData, sizeof(vertexData) / sizeof(*vertexData), vao, vbo);
 }
 
@@ -31,18 +33,15 @@ void Obj3dCoordinateLines::draw() {
     glBindVertexArray(vao);
     glEnable(GL_DEPTH_TEST);
     glLineWidth(10);
-    setColor(0xff0000);
-//    glUniform3f(_colorShaderProgram.aColorLocation, 1.f, 0.0f, 0.f);
+    ColorHelper::setColor(_colorShaderProgram.aColorLocation, 0xff0000);
     glDrawArrays(GL_LINES, 0, 2);
 
     glLineWidth(20);
-    setColor(0x00ff00);
-//    glUniform3f(_colorShaderProgram.aColorLocation, 0.f, 1.0f, 0.f);
+    ColorHelper::setColor(_colorShaderProgram.aColorLocation, 0x00ff00);
     glDrawArrays(GL_LINES, 2, 2);
 
     glLineWidth(30);
-    setColor(0x0000ff);
-//    glUniform3f(_colorShaderProgram.aColorLocation, 0.f, 0.0f, 1.f);
+    ColorHelper::setColor(_colorShaderProgram.aColorLocation, 0x0000ff);
     glDrawArrays(GL_LINES, 4, 2);
     glDisable(GL_DEPTH_TEST);
 }

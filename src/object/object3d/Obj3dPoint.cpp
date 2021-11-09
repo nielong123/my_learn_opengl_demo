@@ -3,6 +3,7 @@
 //
 
 #include "Obj3dPoint.h"
+#include "../../include/tools/ColorHelper.h"
 
 Obj3dPoint::Obj3dPoint(float x, float y, float z, int color) {
     vertexData[0] = x;
@@ -17,6 +18,7 @@ Obj3dPoint::Obj3dPoint(float x, float y, float z) {
 }
 
 Obj3dPoint::Obj3dPoint() : Object3d() {
+    Object3d();
     _VertexArray = new VertexArray(vertexData, sizeof(vertexData) / sizeof(*vertexData), vao, vbo);
 }
 
@@ -28,17 +30,16 @@ void Obj3dPoint::draw() {
     Object3d::draw();
     glEnableVertexAttribArray(0);
     glUniformMatrix4fv(_colorShaderProgram.aMatrixLocation, 1, GL_FALSE, mvpMatrix.m);
+    ColorHelper::setColor(_colorShaderProgram.aColorLocation, rgbColor);
 
     glBindVertexArray(vao);
     glEnable(GL_DEPTH_TEST);
-//    glEnable(GL_BLEND);
-//    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glPointSize(30);
-    setColor(rgbColor);
     glDrawArrays(GL_POINTS, 0, 1);
-
+    glDisable(GL_BLEND);
     glDisable(GL_DEPTH_TEST);
-//    glDisable(GL_BLEND);
 }
 
 void Obj3dPoint::bind() {

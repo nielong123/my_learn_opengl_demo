@@ -24,7 +24,9 @@ public:
 
     virtual void bind() { isBind = true; };
 
-    virtual void unbind() {};
+    virtual void unbind() {
+        _colorShaderProgram.deleteProgram();
+    };
 
     void draw(const Mat4 viewProjectMatrix) {
         if (!isBind) {
@@ -43,7 +45,9 @@ public:
         unbind();
     }
 
-    virtual void draw() {};
+    virtual void draw() {
+        _colorShaderProgram.userProgram();
+    };
 
     void setColorShaderProgram(ColorShaderProgram colorShaderProgram) {
         _colorShaderProgram = colorShaderProgram;
@@ -66,13 +70,6 @@ private:
 protected:
     ColorShaderProgram _colorShaderProgram;
 
-    void setColor(int hexRGBColor) {
-        float color[3];
-        color[0] = float(hexRGBColor >> 16 & 0xff) / 0xff;
-        color[1] = float(hexRGBColor >> 8 & 0xff) / 0xff;
-        color[2] = float(hexRGBColor & 0xff) / 0xff;
-        glUniform3f(_colorShaderProgram.aColorLocation, color[0], color[1], color[2]);
-    }
 };
 
 

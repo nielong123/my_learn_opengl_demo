@@ -63,7 +63,7 @@ add_executable(testCpp
         src/object/TestFunction.cpp
         src/object/TestFunction.h
         src/object/object3d/test/Obj3dTriangle.cpp
-        src/object/object3d/test/Obj3dTriangle.h)
+        src/object/object3d/test/Obj3dTriangle.h src/include/tools/ColorHelper.h)
 
 target_link_libraries(testCpp
         glfw

@@ -97,7 +97,7 @@ int main() {
     _Obj3dTriangle->setFillColor(0x00ffffff);
     mObjectVector.push_back(static_cast<Object3d *>(_Obj3dTriangle));
 
-    _ColorShaderProgram->userProgram();
+//    _ColorShaderProgram->userProgram();
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window)) {

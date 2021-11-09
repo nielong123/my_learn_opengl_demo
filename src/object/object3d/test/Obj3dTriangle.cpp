@@ -3,10 +3,12 @@
 //
 
 #include "Obj3dTriangle.h"
+#include "../../../include/tools/ColorHelper.h"
 #include <iostream>
 
 
 Obj3dTriangle::Obj3dTriangle() : Object3d() {
+    Object3d();
     _VertexArray = new VertexArray(vertexData, sizeof(vertexData) / sizeof(*vertexData), vao, vbo);
 }
 
@@ -28,7 +30,7 @@ void Obj3dTriangle::draw() {
     Object3d::draw();
     glEnableVertexAttribArray(0);
     glUniformMatrix4fv(_colorShaderProgram.aMatrixLocation, 1, GL_FALSE, mvpMatrix.m);
-    setColor(fillColor);
+    ColorHelper::setColor(_colorShaderProgram.aColorLocation, fillColor);
     glBindVertexArray(vao);
     glEnable(GL_DEPTH_TEST);
     glDrawArrays(GL_TRIANGLES, 0, 3);
