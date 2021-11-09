@@ -9,6 +9,7 @@
 #include "geometry/Point.h"
 #include "object/object3d/Obj3dCoordinateLines.h"
 #include "object/object3d/test/Obj3dTriangle.h"
+#include "object/object3d/Obj3dPoint.h"
 
 using namespace std;
 
@@ -83,13 +84,18 @@ int main() {
     initViewPoint();
 
     std::vector<Object3d *> mObjectVector;
+    Obj3dPoint *_Obj3dPoint = new Obj3dPoint(1.4f, 1.5f, 1.1f);
+//    Obj3dPoint *_Obj3dPoint = new Obj3dPoint();
+    _Obj3dPoint->setColorShaderProgram(*_ColorShaderProgram);
+    mObjectVector.push_back(static_cast<Object3d *>(_Obj3dPoint));
+
     Obj3dCoordinateLines *_Obj3dCoordinateLines = new Obj3dCoordinateLines();
     _Obj3dCoordinateLines->setColorShaderProgram(*_ColorShaderProgram);
     mObjectVector.push_back(static_cast<Object3d *>(_Obj3dCoordinateLines));
 
     Obj3dTriangle *_Obj3dTriangle = new Obj3dTriangle();
     _Obj3dTriangle->setColorShaderProgram(*_ColorShaderProgram);
-    _Obj3dTriangle->setColor(0x00ffffff);
+    _Obj3dTriangle->setFillColor(0x00ffffff);
     mObjectVector.push_back(static_cast<Object3d *>(_Obj3dTriangle));
 
     _ColorShaderProgram->userProgram();

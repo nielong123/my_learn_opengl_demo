@@ -22,7 +22,7 @@ public :
 
     void draw() override;
 
-    void setColor(int hexARGBColor);
+    void setFillColor(int hexARGBColor);
 
 private:
 
@@ -32,7 +32,7 @@ private:
             0.0f, 0.5f, 0.0f  // top
     };
 
-    float color[4];
+    int fillColor;
 };
 
 

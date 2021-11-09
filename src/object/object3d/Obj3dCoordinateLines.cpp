@@ -31,15 +31,18 @@ void Obj3dCoordinateLines::draw() {
     glBindVertexArray(vao);
     glEnable(GL_DEPTH_TEST);
     glLineWidth(10);
-    glUniform3f(_colorShaderProgram.aColorLocation, 1.f, 0.0f, 0.f);
+    setColor(0xff0000);
+//    glUniform3f(_colorShaderProgram.aColorLocation, 1.f, 0.0f, 0.f);
     glDrawArrays(GL_LINES, 0, 2);
 
     glLineWidth(20);
-    glUniform3f(_colorShaderProgram.aColorLocation, 0.f, 1.0f, 0.f);
+    setColor(0x00ff00);
+//    glUniform3f(_colorShaderProgram.aColorLocation, 0.f, 1.0f, 0.f);
     glDrawArrays(GL_LINES, 2, 2);
 
     glLineWidth(30);
-    glUniform3f(_colorShaderProgram.aColorLocation, 0.f, 0.0f, 1.f);
+    setColor(0x0000ff);
+//    glUniform3f(_colorShaderProgram.aColorLocation, 0.f, 0.0f, 1.f);
     glDrawArrays(GL_LINES, 4, 2);
     glDisable(GL_DEPTH_TEST);
 }

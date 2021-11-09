@@ -19,10 +19,10 @@ public:
     void deleteProgram() override;
 
 public:
-    int aPositionLocation;
+//    int aPositionLocation;
     int aMatrixLocation;
     int aColorLocation;
-    int aPointSizeLocation;
+//    int aPointSizeLocation;
 
 public:
 

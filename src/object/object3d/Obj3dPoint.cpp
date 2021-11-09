@@ -4,6 +4,18 @@
 
 #include "Obj3dPoint.h"
 
+Obj3dPoint::Obj3dPoint(float x, float y, float z, int color) {
+    vertexData[0] = x;
+    vertexData[1] = y;
+    vertexData[2] = z;
+    this->color = color;
+    Obj3dPoint();
+}
+
+Obj3dPoint::Obj3dPoint(float x, float y, float z) {
+    Obj3dPoint(x, y, z, 0xf234f6);
+}
+
 Obj3dPoint::Obj3dPoint() : Object3d() {
     _VertexArray = new VertexArray(vertexData, sizeof(vertexData) / sizeof(*vertexData), vao, vbo);
 }
@@ -14,20 +26,27 @@ Obj3dPoint::~Obj3dPoint() {
 
 void Obj3dPoint::draw() {
     Object3d::draw();
+    glEnableVertexAttribArray(0);
+    glUniformMatrix4fv(_colorShaderProgram.aMatrixLocation, 1, GL_FALSE, mvpMatrix.m);
+
     glBindVertexArray(vao);
-    glDrawArrays(GL_POINTS, 0, 3);
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    setColor(color);
+    glPointSize(30);
+    glDrawArrays(GL_POINTS, 0, 1);
+
+    glDisable(GL_DEPTH_TEST);
+    glDisable(GL_BLEND);
 }
 
 void Obj3dPoint::bind() {
-    glUniformMatrix4fv(1, 1, false, mvpMatrix.m);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *) 0);
-    glEnableVertexAttribArray(0);
 
-    // note that this is allowed, the call to glVertexAttribPointer registered VBO as the vertex attribute's bound vertex buffer object so afterwards we can safely unbind
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
 
-    // You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
-    // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
-    glBindVertexArray(0);
+void Obj3dPoint::unbind() {
+
+
 }

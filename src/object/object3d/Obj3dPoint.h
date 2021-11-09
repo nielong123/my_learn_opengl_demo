@@ -14,18 +14,25 @@ class Obj3dPoint : virtual public Object3d {
 public:
     Obj3dPoint();
 
+    Obj3dPoint(float x, float y, float z);
+
+    Obj3dPoint(float x, float y, float z, int color);
+
     ~Obj3dPoint();
 
     void draw();
 
 private:
-    float vertexData[9] = {
-            -0.6f, -0.3f, 0.1f, // left
-            0.8f, -0.56f, 0.0f, // right
-            0.24f, 0.1f, 0.9f  // top
+
+    int color = 0xffffff;
+
+    float vertexData[3] = {
+            1.f, 1.f, 1.f
     };
 
-    void bind();
+    void bind() override;
+
+    void unbind() override;
 };
 
 

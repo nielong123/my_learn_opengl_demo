@@ -27,19 +27,16 @@ void Obj3dTriangle::bind() {
 void Obj3dTriangle::draw() {
     Object3d::draw();
     glEnableVertexAttribArray(0);
-    glUniform3f(_colorShaderProgram.aColorLocation, color[0], color[1], color[2]);
     glUniformMatrix4fv(_colorShaderProgram.aMatrixLocation, 1, GL_FALSE, mvpMatrix.m);
-
+    setColor(fillColor);
     glBindVertexArray(vao);
     glEnable(GL_DEPTH_TEST);
     glDrawArrays(GL_TRIANGLES, 0, 3);
     glDisable(GL_DEPTH_TEST);
 }
 
-void Obj3dTriangle::setColor(int hexRGBColor) {
-    this->color[0] = float(hexRGBColor >> 16 & 0xff) / 0xff;
-    this->color[1] = float(hexRGBColor >> 8 & 0xff) / 0xff;
-    this->color[2] = float(hexRGBColor & 0xff) / 0xff;
+void Obj3dTriangle::setFillColor(int hexRGBColor) {
+    this->fillColor = hexRGBColor;
 }
 
 
