@@ -98,7 +98,7 @@ public:
      *
      * @param color The integer to interpret as an RGB value.
      *
-     * @return A vector corresponding to the interpreted RGB color.
+     * @return A vector corresponding to the interpreted RGB rgbColor.
      */
     static Vec3 fromColor(unsigned int color);
 

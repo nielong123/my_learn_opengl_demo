@@ -8,7 +8,7 @@ Obj3dPoint::Obj3dPoint(float x, float y, float z, int color) {
     vertexData[0] = x;
     vertexData[1] = y;
     vertexData[2] = z;
-    this->color = color;
+    this->rgbColor = color;
     Obj3dPoint();
 }
 
@@ -31,22 +31,21 @@ void Obj3dPoint::draw() {
 
     glBindVertexArray(vao);
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    setColor(color);
+//    glEnable(GL_BLEND);
+//    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glPointSize(30);
+    setColor(rgbColor);
     glDrawArrays(GL_POINTS, 0, 1);
 
     glDisable(GL_DEPTH_TEST);
-    glDisable(GL_BLEND);
+//    glDisable(GL_BLEND);
 }
 
 void Obj3dPoint::bind() {
-
-
+    Object3d::bind();
 }
 
 void Obj3dPoint::unbind() {
-
-
+    Object3d::unbind();
+    glDisableVertexAttribArray(0);
 }

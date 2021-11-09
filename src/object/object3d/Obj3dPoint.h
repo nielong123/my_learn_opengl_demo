@@ -24,7 +24,7 @@ public:
 
 private:
 
-    int color = 0xffffff;
+    int rgbColor = 0xffffff;
 
     float vertexData[3] = {
             1.f, 1.f, 1.f

@@ -44,13 +44,13 @@ public:
 
     inline static const char *FRAGMENT_SHADER = "#version 330 core\n"
                                                 "\n"
-                                                "out vec4 color;\n"
+                                                "out vec4 rgbColor;\n"
                                                 "in vec4 VColor;\n"
                                                 "\n"
                                                 "void main()\n"
                                                 "{\n"
-                                                "   color = VColor;\n"
-                                                //                                                "   color = vec4(0.9f,0.5f,0.9f,0.5f);\n"
+                                                "   rgbColor = VColor;\n"
+                                                //                                                "   rgbColor = vec4(0.9f,0.5f,0.9f,0.5f);\n"
                                                 "}\n\0";
 };
 

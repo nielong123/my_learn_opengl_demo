@@ -84,8 +84,7 @@ int main() {
     initViewPoint();
 
     std::vector<Object3d *> mObjectVector;
-    Obj3dPoint *_Obj3dPoint = new Obj3dPoint(1.4f, 1.5f, 1.1f);
-//    Obj3dPoint *_Obj3dPoint = new Obj3dPoint();
+    Obj3dPoint *_Obj3dPoint = new Obj3dPoint(1.4f, 1.5f, 2.1f);
     _Obj3dPoint->setColorShaderProgram(*_ColorShaderProgram);
     mObjectVector.push_back(static_cast<Object3d *>(_Obj3dPoint));
 

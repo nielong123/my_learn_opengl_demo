@@ -99,7 +99,7 @@ public:
      *
      * @param color The integer to interpret as an RGBA value.
      *
-     * @return A vector corresponding to the interpreted RGBA color.
+     * @return A vector corresponding to the interpreted RGBA rgbColor.
      */
     static Vec4 fromColor(unsigned int color);
 
