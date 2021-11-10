@@ -3,7 +3,7 @@
 //
 
 #include "Obj3dPoint.h"
-#include "../../include/tools/ColorHelper.h"
+#include "../../helper/ColorHelper.h"
 
 Obj3dPoint::Obj3dPoint(float x, float y, float z, int color) {
     vertexData[0] = x;

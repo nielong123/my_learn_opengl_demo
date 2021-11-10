@@ -3,7 +3,7 @@
 //
 
 #include "Obj3dCoordinateLines.h"
-#include "../../include/tools/ColorHelper.h"
+#include "../../helper/ColorHelper.h"
 
 
 Obj3dCoordinateLines::Obj3dCoordinateLines() : Object3d() {

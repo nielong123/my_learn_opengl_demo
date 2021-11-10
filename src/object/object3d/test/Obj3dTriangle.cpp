@@ -3,7 +3,7 @@
 //
 
 #include "Obj3dTriangle.h"
-#include "../../../include/tools/ColorHelper.h"
+#include "../../../helper/ColorHelper.h"
 #include <iostream>
 
 
