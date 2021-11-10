@@ -84,9 +84,6 @@ int main() {
     initViewPoint();
 
     std::vector<Object3d *> mObjectVector;
-    Obj3dPoint *_Obj3dPoint = new Obj3dPoint(1.4f, 1.5f, 2.1f);
-    _Obj3dPoint->setColorShaderProgram(*_ColorShaderProgram);
-    mObjectVector.push_back(static_cast<Object3d *>(_Obj3dPoint));
 
     Obj3dCoordinateLines *_Obj3dCoordinateLines = new Obj3dCoordinateLines();
     _Obj3dCoordinateLines->setColorShaderProgram(*_ColorShaderProgram);
@@ -96,6 +93,10 @@ int main() {
     _Obj3dTriangle->setColorShaderProgram(*_ColorShaderProgram);
     _Obj3dTriangle->setFillColor(0x00ffffff);
     mObjectVector.push_back(static_cast<Object3d *>(_Obj3dTriangle));
+
+    Obj3dPoint *_Obj3dPoint = new Obj3dPoint(1.4f, 1.5f, -2.1f, 0xff1200);
+    _Obj3dPoint->setColorShaderProgram(*_ColorShaderProgram);
+    mObjectVector.push_back(static_cast<Object3d *>(_Obj3dPoint));
 
 //    _ColorShaderProgram->userProgram();
     // render loop
@@ -113,7 +114,7 @@ int main() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         for (Object3d *item : mObjectVector) {
-            item->draw(_VaryTools->getViewProjectionMatrix());
+            item->draw(_VaryTools->getFinalMatrix());
         }
 //        }
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
@@ -135,6 +136,7 @@ void mouse_mid_scroll_callback(GLFWwindow *window, double xOffset, double yOffse
     double scale = 1 + yOffset / 20;
     printf("scale = %lf \n", scale);
     _VaryTools->scale(scale);
+    _VaryTools->calcFinalMatrix();
     renderFrame();
 }
 
@@ -145,6 +147,7 @@ void mouse_pos_callback(GLFWwindow *window, double xPos, double yPos) {
             float move_pos_y = yPos - mouse_y;
 //            if (move_pos_x > 1 || move_pos_y > 1) {
             _VaryTools->rotate(0.1, move_pos_y, move_pos_x, 0);
+            _VaryTools->calcFinalMatrix();
             renderFrame();
 //            }
 //            printf("mouse_x = %f \n", move_pos_x);
@@ -159,6 +162,7 @@ void mouse_pos_callback(GLFWwindow *window, double xPos, double yPos) {
             float move_pos_x = (xPos - mouse_x) / 100;
             float move_pos_y = -(yPos - mouse_y) / 100;
             _VaryTools->translate(move_pos_x, move_pos_y, 0);
+            _VaryTools->calcFinalMatrix();
 //            printf("mouse_x = %f \n", move_pos_x);
 //            printf("mouse_y = %f \n", move_pos_y);
             renderFrame();
@@ -221,6 +225,7 @@ GLvoid initViewPoint() {
                           _viewCenterPoint->x, _viewCenterPoint->y, _viewCenterPoint->z,
                           0.f, 1.f, 0.f);
     _VaryTools->setProjection(screen_width, screen_height);
+    _VaryTools->calcFinalMatrix();
 }
 
 void renderFrame() {

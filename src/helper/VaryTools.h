@@ -41,7 +41,9 @@ public:
     //重制投影视角矩阵
     void resetVPMatrix();
 
-    Mat4 getViewProjectionMatrix();
+    void calcFinalMatrix();
+
+    Mat4 getFinalMatrix();
 
 public:
 
@@ -49,10 +51,10 @@ public:
 
 private:
     Mat4 viewMatrix;        //相机
-    Mat4 orgViewMatrix;     //原始相机
     Mat4 projectionMatrix;      //投影
-    Mat4 orgProjectMatrix;      //原始投影
     Mat4 viewProjectionMatrix;      //总矩阵
+    Mat4 scaleMatrix;   //缩放矩阵
+    Mat4 moveMatrix;        //移动缩放矩阵
 };
 
 
