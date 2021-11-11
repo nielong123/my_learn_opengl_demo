@@ -6,9 +6,9 @@
 #define TESTCPP_OBJ3DTRIANGLE_H
 
 #include <glad/glad.h>
-#include "../Object3d.h"
-#include "../../../arrays/VertexArray.h"
-#include "../../../geometry/Point.h"
+#include "Object3d.h"
+#include "../../arrays/VertexArray.h"
+#include "../../geometry/Point.h"
 
 
 class Obj3dTriangle : virtual public Object3d {

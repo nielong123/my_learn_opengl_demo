@@ -8,7 +8,7 @@
 #include "helper/VaryTools.h"
 #include "geometry/Point.h"
 #include "object/object3d/Obj3dCoordinateLines.h"
-#include "object/object3d/test/Obj3dTriangle.h"
+#include "object/object3d/Obj3dTriangle.h"
 #include "object/object3d/Obj3dPoint.h"
 #include "Test1.h"
 
@@ -98,9 +98,9 @@ int main() {
     _Obj3dTriangle->setColorShaderProgram(*_ColorShaderProgram);
     mObjectVector.push_back(static_cast<Object3d *>(_Obj3dTriangle));
 
-//    Obj3dPoint *_Obj3dPoint = new Obj3dPoint();
-//    _Obj3dPoint->setColorShaderProgram(*_ColorShaderProgram);
-//    mObjectVector.push_back(static_cast<Object3d *>(_Obj3dPoint));
+    Obj3dPoint *_Obj3dPoint = new Obj3dPoint();
+    _Obj3dPoint->setColorShaderProgram(*_ColorShaderProgram);
+    mObjectVector.push_back(static_cast<Object3d *>(_Obj3dPoint));
 
     Obj3dPoint *_Obj3dPoint1 = new Obj3dPoint(2.f, 1.f, 1.f);
     _Obj3dPoint1->setColorShaderProgram(*_ColorShaderProgram);

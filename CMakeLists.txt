@@ -62,8 +62,8 @@ add_executable(testCpp
         src/arrays/VertexArray.h
         src/object/TestFunction.cpp
         src/object/TestFunction.h
-        src/object/object3d/test/Obj3dTriangle.cpp
-        src/object/object3d/test/Obj3dTriangle.h
+        src/object/object3d/Obj3dTriangle.cpp
+        src/object/object3d/Obj3dTriangle.h
         src/helper/ColorHelper.h
         src/constants/GlobalsDefine.h)
 

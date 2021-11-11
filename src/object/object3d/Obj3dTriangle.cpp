@@ -3,8 +3,8 @@
 //
 
 #include "Obj3dTriangle.h"
-#include "../../../helper/ColorHelper.h"
-#include "../../../constants/GlobalsDefine.h"
+#include "../../helper/ColorHelper.h"
+#include "../../constants/GlobalsDefine.h"
 #include <iostream>
 
 
