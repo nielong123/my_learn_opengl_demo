@@ -8,11 +8,14 @@
 #include <glad/glad.h>
 #include "../Object3d.h"
 #include "../../../arrays/VertexArray.h"
+#include "../../../geometry/Point.h"
 
 
 class Obj3dTriangle : virtual public Object3d {
 public :
     Obj3dTriangle();
+
+    Obj3dTriangle(Point &point1, Point &point2, Point &point3, int hexColor);
 
     virtual ~Obj3dTriangle();
 
@@ -27,9 +30,9 @@ public :
 private:
 
     float vertexData[9] = {
-            -0.5f, -0.5f, 0.0f, // left
+            -1.5f, -0.5f, 0.0f, // left
             0.5f, -0.5f, 0.0f, // right
-            0.0f, 0.5f, 0.0f  // top
+            1.0f, 0.5f, 1.0f  // top
     };
 
     int fillColor;

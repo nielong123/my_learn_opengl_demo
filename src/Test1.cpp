@@ -22,5 +22,13 @@ Test1::~Test1() {
 
 }
 
+Test1::Test1(int &i) {
+    this->i1 = i;
+}
+
+void Test1::printI1() {
+    printf("i1 = %d", i1);
+}
+
 
 

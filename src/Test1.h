@@ -12,13 +12,18 @@ class Test1 {
 public:
     Test1();
 
+    Test1(int &i);
+
     virtual ~Test1();
 
     void add(int a, int b);
 
+    void printI1();
+
 private:
     std::shared_ptr<Test2> test2;
 //    Test2 *test21;
+    int i1;
 };
 
 

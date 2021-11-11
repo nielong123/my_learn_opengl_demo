@@ -10,6 +10,7 @@
 #include "object/object3d/Obj3dCoordinateLines.h"
 #include "object/object3d/test/Obj3dTriangle.h"
 #include "object/object3d/Obj3dPoint.h"
+#include "Test1.h"
 
 using namespace std;
 
@@ -89,16 +90,22 @@ int main() {
     _Obj3dCoordinateLines->setColorShaderProgram(*_ColorShaderProgram);
     mObjectVector.push_back(static_cast<Object3d *>(_Obj3dCoordinateLines));
 
-    Obj3dTriangle *_Obj3dTriangle = new Obj3dTriangle();
+    Obj3dTriangle *_Obj3dTriangle = new Obj3dTriangle(*new Point(1.f, 1.f, 1.f),
+                                                      *new Point(0.f, 1.f, 1.f),
+                                                      *new Point(1.f, 0.f, 1.f),
+                                                      0x123456);
+//    Obj3dTriangle *_Obj3dTriangle = new Obj3dTriangle();
     _Obj3dTriangle->setColorShaderProgram(*_ColorShaderProgram);
-    _Obj3dTriangle->setFillColor(0x00ffffff);
     mObjectVector.push_back(static_cast<Object3d *>(_Obj3dTriangle));
 
-    Obj3dPoint *_Obj3dPoint = new Obj3dPoint(1.4f, 1.5f, -2.1f, 0xff1200);
-    _Obj3dPoint->setColorShaderProgram(*_ColorShaderProgram);
-    mObjectVector.push_back(static_cast<Object3d *>(_Obj3dPoint));
+//    Obj3dPoint *_Obj3dPoint = new Obj3dPoint();
+//    _Obj3dPoint->setColorShaderProgram(*_ColorShaderProgram);
+//    mObjectVector.push_back(static_cast<Object3d *>(_Obj3dPoint));
 
-//    _ColorShaderProgram->userProgram();
+    Obj3dPoint *_Obj3dPoint1 = new Obj3dPoint(2.f, 1.f, 1.f);
+    _Obj3dPoint1->setColorShaderProgram(*_ColorShaderProgram);
+    mObjectVector.push_back(static_cast<Object3d *>(_Obj3dPoint1));
+
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window)) {
@@ -127,7 +134,7 @@ int main() {
     // ------------------------------------------------------------------
     glfwTerminate();
 
-    _ColorShaderProgram->deleteProgram();
+//    _ColorShaderProgram->deleteProgram();
 
     return 0;
 }

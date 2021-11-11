@@ -7,8 +7,7 @@
 
 
 Obj3dCoordinateLines::Obj3dCoordinateLines() : Object3d() {
-    Object3d();
-    _VertexArray = new VertexArray(vertexData, sizeof(vertexData) / sizeof(*vertexData), vao, vbo);
+    getVertexArray(vertexData, sizeof(vertexData) / sizeof(*vertexData));
 }
 
 Obj3dCoordinateLines::~Obj3dCoordinateLines() {
@@ -18,6 +17,7 @@ Obj3dCoordinateLines::~Obj3dCoordinateLines() {
 void Obj3dCoordinateLines::unbind() {
     Object3d::unbind();
     glDisableVertexAttribArray(0);
+    _colorShaderProgram.deleteProgram();
 }
 
 
@@ -27,6 +27,7 @@ void Obj3dCoordinateLines::bind() {
 
 void Obj3dCoordinateLines::draw() {
     Object3d::draw();
+    _colorShaderProgram.userProgram();
     glEnableVertexAttribArray(0);
     glUniformMatrix4fv(_colorShaderProgram.aMatrixLocation, 1, GL_FALSE, mvpMatrix.m);
 

@@ -23,7 +23,7 @@ public :
 
 private:
 
-    float r = 3.f;
+    float r = 5.f;
 
     float vertexData[18] = {0.f, r, 0.f,
                             0.f, -r, 0.f,

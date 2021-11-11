@@ -25,7 +25,7 @@ public:
     virtual void bind() { isBind = true; };
 
     virtual void unbind() {
-        _colorShaderProgram.deleteProgram();
+
     };
 
     void draw(const Mat4 viewProjectMatrix) {
@@ -45,12 +45,20 @@ public:
         unbind();
     }
 
-    virtual void draw() {
-        _colorShaderProgram.userProgram();
-    };
+    virtual void draw() {};
 
     void setColorShaderProgram(ColorShaderProgram colorShaderProgram) {
         _colorShaderProgram = colorShaderProgram;
+    }
+
+protected:
+
+    void getVertexArray(float *vertexData, int vertexSize) {
+        float data[vertexSize];
+        for (int i = 0; i < vertexSize; ++i) {
+            data[i] = vertexData[i];
+        }
+        _VertexArray = new VertexArray(data, sizeof(data) / sizeof(*data), vao, vbo);
     }
 
 public:

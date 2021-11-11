@@ -5,25 +5,27 @@
 #include "Obj3dPoint.h"
 #include "../../helper/ColorHelper.h"
 
-Obj3dPoint::Obj3dPoint(float x, float y, float z, int color) {
+Obj3dPoint::Obj3dPoint(float x, float y, float z, int color) : Object3d() {
     vertexData[0] = x;
     vertexData[1] = y;
     vertexData[2] = z;
-    this->rgbColor = color;
-    Obj3dPoint();
+    rgbColor = color;
+    getVertexArray(vertexData, sizeof(vertexData) / sizeof(*vertexData));
 }
 
-Obj3dPoint::Obj3dPoint(float x, float y, float z) {
-    Obj3dPoint(x, y, z, 0xf234f6);
+Obj3dPoint::Obj3dPoint(float x, float y, float z) : Object3d() {
+    vertexData[0] = x;
+    vertexData[1] = y;
+    vertexData[2] = z;
+    getVertexArray(vertexData, sizeof(vertexData) / sizeof(*vertexData));
 }
 
 Obj3dPoint::Obj3dPoint() : Object3d() {
-    Object3d();
-    _VertexArray = new VertexArray(vertexData, sizeof(vertexData) / sizeof(*vertexData), vao, vbo);
+    rgbColor = 0xf234f6;
+    getVertexArray(vertexData, sizeof(vertexData) / sizeof(*vertexData));
 }
 
 Obj3dPoint::~Obj3dPoint() {
-
 }
 
 void Obj3dPoint::draw() {
@@ -48,5 +50,6 @@ void Obj3dPoint::bind() {
 
 void Obj3dPoint::unbind() {
     Object3d::unbind();
+    _colorShaderProgram.deleteProgram();
     glDisableVertexAttribArray(0);
 }

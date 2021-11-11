@@ -26,9 +26,8 @@ private:
 
     int rgbColor = 0xffffff;
 
-    float vertexData[6] = {
-            1.f, 1.f, 1.f,
-            2.f, 3.f, 4.f
+    float vertexData[3] = {
+            1.5f, 1.f, 1.f,
     };
 
     void bind() override;
