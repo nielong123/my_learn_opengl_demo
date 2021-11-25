@@ -15,12 +15,13 @@ public:
 
     Obj3dPolyLine();
 
-    void draw();
+    void draw() override;
 
 private:
     Polyline polyline;
 
 
+    void unbind() override;
 };
 
 

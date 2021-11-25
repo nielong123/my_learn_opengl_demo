@@ -36,3 +36,9 @@ void Obj3dPolyLine::draw() {
     glDrawArrays(GL_LINE_STRIP, 0, this->polyline.getAllPoints().size());
     glDisable(GL_DEPTH_TEST);
 }
+
+void Obj3dPolyLine::unbind() {
+    Object3d::unbind();
+    glDisableVertexAttribArray(0);
+    _colorShaderProgram.deleteProgram();
+}
