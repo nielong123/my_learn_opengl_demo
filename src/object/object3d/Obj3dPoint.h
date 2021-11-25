@@ -20,7 +20,7 @@ public:
 
     ~Obj3dPoint();
 
-    void draw();
+    void draw() override;
 
 private:
 

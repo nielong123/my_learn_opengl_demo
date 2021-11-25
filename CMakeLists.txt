@@ -65,7 +65,7 @@ add_executable(testCpp
         src/object/object3d/Obj3dTriangle.cpp
         src/object/object3d/Obj3dTriangle.h
         src/helper/ColorHelper.h
-        src/constants/GlobalsDefine.h)
+        src/constants/GlobalsDefine.h src/geometry/Polyline.cpp src/geometry/Polyline.h src/object/object3d/Obj3dPolyLine.cpp src/object/object3d/Obj3dPolyLine.h)
 
 target_link_libraries(testCpp
         glfw

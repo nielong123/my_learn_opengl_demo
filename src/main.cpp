@@ -11,6 +11,8 @@
 #include "object/object3d/Obj3dTriangle.h"
 #include "object/object3d/Obj3dPoint.h"
 #include "Test1.h"
+#include "geometry/Polyline.h"
+#include "object/object3d/Obj3dPolyLine.h"
 
 using namespace std;
 
@@ -40,8 +42,6 @@ Point *_viewCenterPoint;
 
 //鼠标位置
 double mouse_x = -1, mouse_y = -1;
-//开始渲染
-bool isRender = true;
 
 
 //鼠标左键是否按下
@@ -106,6 +106,17 @@ int main() {
     _Obj3dPoint1->setColorShaderProgram(*_ColorShaderProgram);
     mObjectVector.push_back(static_cast<Object3d *>(_Obj3dPoint1));
 
+    Polyline polyline = Polyline();
+    polyline.addPoint(new Point(0, 0, 0));
+    polyline.addPoint(new Point(1., 1, 1));
+    polyline.addPoint(new Point(-1, -1, 1));
+    polyline.addPoint(new Point(-2, -2, 2));
+
+    Obj3dPolyLine *_Obj3dPolyLine = new Obj3dPolyLine(polyline);
+    mObjectVector.push_back(static_cast<Object3d *>(_Obj3dPolyLine));
+
+
+
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window)) {
@@ -115,15 +126,12 @@ int main() {
 
         // render
         // ------
-//        if (isRender) {
-//            isRender = false;
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         for (Object3d *item : mObjectVector) {
             item->draw(_VaryTools->getFinalMatrix());
         }
-//        }
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
         glfwSwapBuffers(window);
@@ -236,7 +244,7 @@ GLvoid initViewPoint() {
 }
 
 void renderFrame() {
-    isRender = true;
+//    isRender = true;
 }
 
 
